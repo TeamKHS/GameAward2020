@@ -52,11 +52,12 @@ public class Sound : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!audioSource.isPlaying && loop)
-        {
-            activeCount = 0;
-            Play();
-        }
+        // 一時的にコメントアウト
+        //if (!audioSource.isPlaying && loop)
+        //{
+        //    activeCount = 0;
+        //    Play();
+        //}
 
         if ((uint)((audioSource.time + startOffset) * 60) > bpm * (activeCount + 1) - timingOffset)
         {
@@ -79,9 +80,9 @@ public class Sound : MonoBehaviour
         }
 
 
-        //Debug.Log("再生秒数");
-        //Debug.Log(audioSource.time);
-        //Debug.Log((int)(audioSource.time * 60));
+        Debug.Log("再生秒数");
+        Debug.Log(audioSource.time);
+        Debug.Log((int)(audioSource.time * 60));
     }
 
     public bool IsActive()

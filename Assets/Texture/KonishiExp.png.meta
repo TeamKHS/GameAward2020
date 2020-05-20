@@ -1,0 +1,785 @@
+fileFormatVersion: 2
+guid: 8cdfba65801dd294fb32e6f05d0733b0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7836754385189270982
+    second: KonishiExp_0
+  - first:
+      213: 8228498151347307193
+    second: KonishiExp_1
+  - first:
+      213: 474541702291525439
+    second: KonishiExp_2
+  - first:
+      213: -8668870919139713255
+    second: KonishiExp_3
+  - first:
+      213: 2993531432598270920
+    second: KonishiExp_4
+  - first:
+      213: -5172426226163714805
+    second: KonishiExp_5
+  - first:
+      213: 6218222937527608028
+    second: KonishiExp_6
+  - first:
+      213: 7862576201853944141
+    second: KonishiExp_7
+  - first:
+      213: 477570300699941198
+    second: KonishiExp_8
+  - first:
+      213: 1063140646255972473
+    second: KonishiExp_9
+  - first:
+      213: 4027593185014876669
+    second: KonishiExp_10
+  - first:
+      213: 7425591530508702577
+    second: KonishiExp_11
+  - first:
+      213: -3040325632220306464
+    second: KonishiExp_12
+  - first:
+      213: -5100190233078743240
+    second: KonishiExp_13
+  - first:
+      213: 3410020011081902813
+    second: KonishiExp_14
+  - first:
+      213: 6279857519129994079
+    second: KonishiExp_15
+  - first:
+      213: -83806054003358800
+    second: KonishiExp_16
+  - first:
+      213: -4737000210681648372
+    second: KonishiExp_17
+  - first:
+      213: -7356716257110203187
+    second: KonishiExp_18
+  - first:
+      213: -66893842046026438
+    second: KonishiExp_19
+  - first:
+      213: -9155327842308380472
+    second: KonishiExp_20
+  - first:
+      213: 8631092024011195025
+    second: KonishiExp_21
+  - first:
+      213: 4919330952931383400
+    second: KonishiExp_22
+  - first:
+      213: -3162490550548435682
+    second: KonishiExp_23
+  - first:
+      213: 4697826744626492706
+    second: KonishiExp_24
+  - first:
+      213: -4563524231523082646
+    second: KonishiExp_25
+  - first:
+      213: 7857772215330162158
+    second: KonishiExp_26
+  - first:
+      213: 9062576041460185265
+    second: KonishiExp_27
+  - first:
+      213: -4541780332584384564
+    second: KonishiExp_28
+  - first:
+      213: -7522372016962420897
+    second: KonishiExp_29
+  - first:
+      213: -4185567392753748028
+    second: KonishiExp_30
+  - first:
+      213: -5351938233632872726
+    second: KonishiExp_31
+  - first:
+      213: -262933587921500130
+    second: KonishiExp_32
+  - first:
+      213: -6482307707042306574
+    second: KonishiExp_33
+  - first:
+      213: 2080564153723896366
+    second: KonishiExp_34
+  - first:
+      213: 2629458908398812814
+    second: KonishiExp_35
+  - first:
+      213: -3597169689685244470
+    second: KonishiExp_36
+  - first:
+      213: 2488072247523211598
+    second: KonishiExp_37
+  - first:
+      213: 7793084148036463838
+    second: KonishiExp_38
+  - first:
+      213: -1558891761360694138
+    second: KonishiExp_39
+  - first:
+      213: -8614046863566986303
+    second: KonishiExp_40
+  - first:
+      213: 6144526942785324153
+    second: KonishiExp_41
+  - first:
+      213: -914014381015473152
+    second: KonishiExp_42
+  - first:
+      213: -1107597863268633457
+    second: KonishiExp_43
+  - first:
+      213: -7152719447373281562
+    second: KonishiExp_44
+  - first:
+      213: -3135952781473162035
+    second: KonishiExp_45
+  - first:
+      213: -8584161934790885016
+    second: KonishiExp_46
+  - first:
+      213: 378240219948801802
+    second: KonishiExp_47
+  - first:
+      213: 6230722979167896967
+    second: KonishiExp_48
+  - first:
+      213: -7452801830363187282
+    second: KonishiExp_49
+  - first:
+      213: -4100026400768855790
+    second: KonishiExp_50
+  - first:
+      213: -5062783238224141518
+    second: KonishiExp_51
+  - first:
+      213: -4971501618027553088
+    second: KonishiExp_52
+  - first:
+      213: 3190038255630238790
+    second: KonishiExp_53
+  - first:
+      213: -4471594044882805808
+    second: KonishiExp_54
+  - first:
+      213: 8050329513946453136
+    second: KonishiExp_55
+  - first:
+      213: -8829848718729788679
+    second: KonishiExp_56
+  - first:
+      213: 5376076979736138899
+    second: KonishiExp_57
+  - first:
+      213: 6115001102067927477
+    second: KonishiExp_58
+  - first:
+      213: -5829292109319935703
+    second: KonishiExp_59
+  - first:
+      213: -7844969830103916616
+    second: KonishiExp_60
+  - first:
+      213: -5748557352057023030
+    second: KonishiExp_61
+  - first:
+      213: 2717228924876945760
+    second: KonishiExp_62
+  - first:
+      213: -5077519649553837823
+    second: KonishiExp_63
+  - first:
+      213: -1803644239738888090
+    second: KonishiExp_64
+  - first:
+      213: 7578367226322522639
+    second: KonishiExp_65
+  - first:
+      213: 7267280910753625434
+    second: KonishiExp_66
+  - first:
+      213: 7773444135159000735
+    second: KonishiExp_67
+  - first:
+      213: 5154980816659400351
+    second: KonishiExp_68
+  - first:
+      213: 1279880324645377926
+    second: KonishiExp_69
+  - first:
+      213: 2317018198970921406
+    second: KonishiExp_70
+  - first:
+      213: 2139163094522342599
+    second: KonishiExp_71
+  - first:
+      213: 3166813536924972059
+    second: KonishiExp_72
+  - first:
+      213: -6108852125531717452
+    second: KonishiExp_73
+  - first:
+      213: 2881142469872077547
+    second: KonishiExp_74
+  - first:
+      213: 838150083618306811
+    second: KonishiExp_75
+  - first:
+      213: 3365944365896223990
+    second: KonishiExp_76
+  - first:
+      213: 6253613934605501088
+    second: KonishiExp_77
+  - first:
+      213: -1984294847388279605
+    second: KonishiExp_78
+  - first:
+      213: 7744045315417828712
+    second: KonishiExp_79
+  - first:
+      213: 4305284090084747143
+    second: KonishiExp_80
+  - first:
+      213: -2366751377007887506
+    second: KonishiExp_81
+  - first:
+      213: -1215423864013391810
+    second: KonishiExp_82
+  - first:
+      213: -3581523622220884512
+    second: KonishiExp_83
+  - first:
+      213: -4866006229664128756
+    second: KonishiExp_84
+  - first:
+      213: 1972491754902345720
+    second: KonishiExp_85
+  - first:
+      213: 6088331054531572027
+    second: KonishiExp_86
+  - first:
+      213: 400436395406893409
+    second: KonishiExp_87
+  - first:
+      213: -7389645816869565430
+    second: KonishiExp_88
+  - first:
+      213: -5061546440211850931
+    second: KonishiExp_89
+  - first:
+      213: -7156176814661904724
+    second: KonishiExp_90
+  - first:
+      213: -8194442532783560097
+    second: KonishiExp_91
+  - first:
+      213: 7808674879204367067
+    second: KonishiExp_92
+  - first:
+      213: -6479518240054968823
+    second: KonishiExp_93
+  - first:
+      213: -9188592321351293366
+    second: KonishiExp_94
+  - first:
+      213: 945796031254122613
+    second: KonishiExp_95
+  - first:
+      213: -4700662162398411507
+    second: KonishiExp_96
+  - first:
+      213: 1541690143063414230
+    second: KonishiExp_97
+  - first:
+      213: -9045240615089929830
+    second: KonishiExp_98
+  - first:
+      213: 767667937294675485
+    second: KonishiExp_99
+  - first:
+      213: 6319294647513099634
+    second: KonishiExp_100
+  - first:
+      213: -849716122323586795
+    second: KonishiExp_101
+  - first:
+      213: 1225923902060698977
+    second: KonishiExp_102
+  - first:
+      213: -1518569307482245038
+    second: KonishiExp_103
+  - first:
+      213: 2768139527834931633
+    second: KonishiExp_104
+  - first:
+      213: 2718390433783052937
+    second: KonishiExp_105
+  - first:
+      213: 3982499850275787566
+    second: KonishiExp_106
+  - first:
+      213: 2225626746150610491
+    second: KonishiExp_107
+  - first:
+      213: -1676488815453568294
+    second: KonishiExp_108
+  - first:
+      213: -7277390896783302841
+    second: KonishiExp_109
+  - first:
+      213: 9004883892233339815
+    second: KonishiExp_110
+  - first:
+      213: 3080686082116711541
+    second: KonishiExp_111
+  - first:
+      213: -5793889314389779875
+    second: KonishiExp_112
+  - first:
+      213: -6131379127167660927
+    second: KonishiExp_113
+  - first:
+      213: -2847941239514543001
+    second: KonishiExp_114
+  - first:
+      213: 124068504740181924
+    second: KonishiExp_115
+  - first:
+      213: -1363254956896994802
+    second: KonishiExp_116
+  - first:
+      213: 8691545212522767774
+    second: KonishiExp_117
+  - first:
+      213: -1068442816051382205
+    second: KonishiExp_118
+  - first:
+      213: -4575278284940062780
+    second: KonishiExp_119
+  - first:
+      213: 3346404530422714904
+    second: KonishiExp_120
+  - first:
+      213: 6993820019095599400
+    second: KonishiExp_121
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: KonishiExp_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3a0fc658614e3390800000000000000
+      internalID: -7836754385189270982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b2c302e87f713270800000000000000
+      internalID: 8228498151347307193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3f023cf929e59600800000000000000
+      internalID: 474541702291525439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91f96f424dbf1b780800000000000000
+      internalID: -8668870919139713255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c37cff3af82b8920800000000000000
+      internalID: 2993531432598270920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b05f89280c9d738b0800000000000000
+      internalID: -5172426226163714805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_6
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd2e48de0d09b4650800000000000000
+      internalID: 6218222937527608028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_7
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d41c1fad56b7d1d60800000000000000
+      internalID: 7862576201853944141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e491f7088aba0a600800000000000000
+      internalID: 477570300699941198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 970dd56f8c801ce00800000000000000
+      internalID: 1063140646255972473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_10
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df98894a9a2e4e730800000000000000
+      internalID: 4027593185014876669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_11
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 173de1f87200d0760800000000000000
+      internalID: 7425591530508702577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e36ef122f79ec5d0800000000000000
+      internalID: -3040325632220306464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_13
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83fbc66410c7839b0800000000000000
+      internalID: -5100190233078743240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KonishiExp_14
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddaa28d0223d25f20800000000000000
+      internalID: 3410020011081902813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

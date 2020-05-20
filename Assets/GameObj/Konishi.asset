@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Konishi
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: 3410020011081902813, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: -5100190233078743240, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: -3040325632220306464, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: 7425591530508702577, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: 4027593185014876669, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: 1063140646255972473, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: 1063140646255972473, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: 477570300699941198, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: 7862576201853944141, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: 6218222937527608028, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: -5172426226163714805, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: 2993531432598270920, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: -8668870919139713255, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: 474541702291525439, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: 8228498151347307193, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  - {fileID: -7836754385189270982, guid: 8cdfba65801dd294fb32e6f05d0733b0, type: 3}
+  m_MinSpeed: 15
+  m_MaxSpeed: 15
+  m_AnimationStartTime: 0
+  m_TileColliderType: 0

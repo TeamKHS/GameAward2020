@@ -18,22 +18,22 @@ public class Pause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if(!isPaused)
-            {
-                PauseManager.Pause();
-                soundScript.Pause();
-                isPaused = true;
-                return;
-            }
-            else
-            {
-                PauseManager.Resume();
-                soundScript.UnPause();
-                isPaused = false;
-                return;
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    if(!isPaused)
+        //    {
+        //        PauseManager.Pause();
+        //        soundScript.Pause();
+        //        isPaused = true;
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        PauseManager.Resume();
+        //        soundScript.UnPause();
+        //        isPaused = false;
+        //        return;
+        //    }
+        //}
     }
 }

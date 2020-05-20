@@ -52,7 +52,7 @@ public class Map : MonoBehaviour
 
 
 
-    void Start()
+    public void Initialize()
     {
         // 配列サイズ
         int mapNum = m_MapX * m_MapY;
@@ -67,7 +67,7 @@ public class Map : MonoBehaviour
         Tilemap tileMap = GameObject.FindObjectOfType<Tilemap>();
 
         // タイル情報の一時保存先
-        var spriteList = new List<Sprite>();
+        List<string> nameList = new List<string>();
         List<Vector3> positionList = new List<Vector3>();
 
         var bound = tileMap.cellBounds;
@@ -78,15 +78,15 @@ public class Map : MonoBehaviour
             for (int x = bound.min.x; x < bound.max.x; ++x)
             {
                 // タイル情報
-                var tile = tileMap.GetTile<Tile>(new Vector3Int(x, y, 0));
+                TileBase tileBase = tileMap.GetTile<TileBase>(new Vector3Int(x, y, 0));
 
                 // 座標
                 Vector3Int localPlace = (new Vector3Int(x, y, (int)tileMap.transform.position.y));
                 Vector3 place = tileMap.CellToWorld(localPlace);
 
-                if(tile != null && tileMap.HasTile(localPlace))
+                if(tileBase != null && tileMap.HasTile(localPlace))
                 {
-                    spriteList.Add(tile.sprite);
+                    nameList.Add(tileBase.name.ToString());
                     place.y++;  // 調整
                     positionList.Add(place);
                 }
@@ -94,14 +94,14 @@ public class Map : MonoBehaviour
         }
 
         // データの書き込み
-        for (int i = 0; i < spriteList.Count; i++)
+        for (int i = 0; i < nameList.Count; i++)
         {
             // マップ範囲外だったら次のループへ
             if (GetMapIndex(positionList[i]) < 0 || mapNum - 1 < GetMapIndex(positionList[i]))
             {
                 continue;
             }
-            switch (spriteList[i].name.ToString())
+            switch (nameList[i])
             {
                 case "block_147":
                     m_Map[GetMapIndex(positionList[i])] = (int)MapType.Wall;
@@ -117,6 +117,10 @@ public class Map : MonoBehaviour
 
                 case "block_459":
                     m_Map[GetMapIndex(positionList[i])] = (int)MapType.Goal;
+                    break;
+
+                case "Konishi":
+                    m_Map[GetMapIndex(positionList[i])] = (int)MapType.Wall;
                     break;
             }
         }

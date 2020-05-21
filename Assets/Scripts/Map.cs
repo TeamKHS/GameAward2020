@@ -10,11 +10,16 @@ public class Map : MonoBehaviour
     public int m_MapX;
     public int m_MapY;
 
-    private int[] m_Map;
-    
+    private int[] m_Map;  
     public int[] GetMap
     {
         get { return m_Map; }
+    }
+
+    private Vector3 m_StartPosition;
+    public Vector3 StartPosition
+    {
+        get { return m_StartPosition; }
     }
 
    public enum MapType
@@ -23,6 +28,7 @@ public class Map : MonoBehaviour
         Hole,
         Floor,
         Wall,
+        Start,
         Goal,
         Max
     }
@@ -45,9 +51,25 @@ public class Map : MonoBehaviour
     }
 
     // GameObject型からm_Map配列の添え字を算出
-    public int GetMapIndex(GameObject o)
+    public int GetMapIndex(GameObject obj)
     {
-        return GetMapIndex(o.transform.position);
+        return GetMapIndex(obj.transform.position);
+    }
+
+
+    private Vector3 OffsetPosition(Vector3 pos)
+    {
+        pos.x += 0.5f;
+        pos.y -= 0.5f;
+        return pos;
+    }
+    public Vector3 GetMapPosition(int index)
+    {
+        Vector3 pos = new Vector3();
+        pos.x = (float)(index % m_MapX);
+        pos.y = (float)(index / m_MapX) * -1.0f;
+        pos.z = 0.0f;
+        return OffsetPosition(pos);
     }
 
 
@@ -120,7 +142,8 @@ public class Map : MonoBehaviour
                     break;
 
                 case "Konishi":
-                    m_Map[GetMapIndex(positionList[i])] = (int)MapType.Wall;
+                    m_Map[GetMapIndex(positionList[i])] = (int)MapType.Non;
+                    m_StartPosition = OffsetPosition(positionList[i]);
                     break;
             }
         }

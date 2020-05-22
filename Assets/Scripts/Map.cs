@@ -56,6 +56,10 @@ public class Map : MonoBehaviour
         return GetMapIndex(obj.transform.position);
     }
 
+    public int GetMapIndex(Player obj)
+    {
+        return GetMapIndex(obj.transform.position);
+    }
 
     private Vector3 OffsetPosition(Vector3 pos)
     {
@@ -71,8 +75,6 @@ public class Map : MonoBehaviour
         pos.z = 0.0f;
         return OffsetPosition(pos);
     }
-
-
 
     public void Initialize()
     {

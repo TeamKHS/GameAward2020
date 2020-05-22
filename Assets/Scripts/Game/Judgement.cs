@@ -9,10 +9,11 @@ public class Judgement : MonoBehaviour
     // Start is called before the first frame update
     public void Initialize()
     {
-        GameObject obj = GameObject.Find("StageManager");
-        StageManager stageManager = obj.GetComponent<StageManager>();
-        m_Map = stageManager.Map;
-
+        {
+            GameObject obj = GameObject.Find("StageManager");
+            StageManager stageManager = obj.GetComponent<StageManager>();
+            m_Map = stageManager.Map;
+        }
     }
 
     // Update is called once per frame
@@ -21,7 +22,16 @@ public class Judgement : MonoBehaviour
 
     }
 
+    public void Wall()
+    {
+    }
+
     public void Hole()
+    {
+
+    }
+
+    public void Goal()
     {
 
     }

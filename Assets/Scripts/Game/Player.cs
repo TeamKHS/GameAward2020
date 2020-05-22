@@ -5,29 +5,36 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private enum DirectionType
+    {
+        Right = 0,
+        Left,
+        Up,
+        Down
+    }
+
     private Map m_Map;
     private Judgement m_Judgement;
-
     private bool m_Move;
-    public bool IsMove
-    {
-        get { return m_Move; }
-        set { m_Move = value; }
-    }
-
-    private int m_Direction;
-    public int Direction
-    {
-        get { return m_Direction; }
-    }
+    private int m_Direction = 0;
+    private DirectionType m_DirectionType = DirectionType.Down;
 
     // 線形補間用
     private Vector3 m_StartPosition;
     private Vector3 m_EndPosition;
     private float m_Weight;
     private float m_Value;
-    private float m_Speed = 0.1f;
+    private float m_Speed;
 
+    public bool IsMove
+    {
+        get { return m_Move; }
+        set { m_Move = value; }
+    }
+    public int Direction
+    {
+        get { return m_Direction; }
+    }
     public Vector3 StartPosition
     {
         get { return m_StartPosition; }
@@ -49,15 +56,13 @@ public class Player : MonoBehaviour
     public float Speed
     {
         get { return m_Speed; }
-        set { m_Speed = value; }
-    }
-
-    private enum DirectionType
-    {
-        Right = 0,
-        Left,
-        Up,
-        Down
+        set
+        {
+            float val = value;
+            if (val < 0.0f) val = 0.001f;
+            if (1.0f < val) val = 1.0f;
+                m_Speed = val;
+        }
     }
 
     void Start()
@@ -71,10 +76,13 @@ public class Player : MonoBehaviour
             GameObject obj = GameObject.Find("Judgement");
             m_Judgement = obj.GetComponent<Judgement>();
         }
-
         m_Move = false;
         m_Weight = 0.0f;
         m_Value = 0.0f;
+        m_Speed = 0.05f;
+
+        Animator anim = this.GetComponent<Animator>();
+        anim.SetInteger("Direction", (int)m_DirectionType);
     }
 
     void Update()
@@ -102,22 +110,22 @@ public class Player : MonoBehaviour
 
             bool move = false;
 
-            if (Input.GetKeyUp(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 SetDirection(DirectionType.Right);
                 move = true;
             }
-            if (Input.GetKeyUp(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 SetDirection(DirectionType.Left);
                 move = true;
             }
-            if (Input.GetKeyUp(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 SetDirection(DirectionType.Up);
                 move = true;
             }
-            if (Input.GetKeyUp(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 SetDirection(DirectionType.Down);
                 move = true;
@@ -128,6 +136,7 @@ public class Player : MonoBehaviour
 
             for (int i = 1; move; i++)
             {
+                m_Move = true;          // 移動フラグ
                 int nextIndex = index + i * m_Direction;
 
                 if (map[nextIndex] == (int)Map.MapType.Floor || map[nextIndex] == (int)Map.MapType.Non)
@@ -145,7 +154,7 @@ public class Player : MonoBehaviour
 
                     case (int)Map.MapType.Hole:
                         // 穴
-                        m_Judgement.Hole();
+                        m_Judgement.Hole(this);
                         break;
 
                     case (int)Map.MapType.Goal:
@@ -159,7 +168,6 @@ public class Player : MonoBehaviour
                 m_EndPosition = m_Map.GetMapPosition(nextIndex);    // 進行先を保存
                 m_Weight = 0.0f;        // 割合を初期化
                 m_Value = m_Speed / i;  // 進むマス数によって速度の変更
-                m_Move = true;          // 移動フラグ
 
                 break;
             }
@@ -173,17 +181,24 @@ public class Player : MonoBehaviour
 
     private void SetDirection(DirectionType dir)
     {
+        m_DirectionType = dir;
+        Animator anim = this.GetComponent<Animator>();
+        anim.SetInteger("Direction", (int)m_DirectionType);
+
         switch (dir)
         {
             case DirectionType.Right:
                 m_Direction = 1;
                 break;
+
             case DirectionType.Left:
                 m_Direction = -1;
                 break;
+
             case DirectionType.Up:
                 m_Direction = -m_Map.m_MapX;
                 break;
+
             case DirectionType.Down:
                 m_Direction = m_Map.m_MapX;
                 break;

@@ -80,9 +80,9 @@ public class Sound : MonoBehaviour
         }
 
 
-        Debug.Log("再生秒数");
-        Debug.Log(audioSource.time);
-        Debug.Log((int)(audioSource.time * 60));
+        //Debug.Log("再生秒数");
+        //Debug.Log(audioSource.time);
+        //Debug.Log((int)(audioSource.time * 60));
     }
 
     public bool IsActive()

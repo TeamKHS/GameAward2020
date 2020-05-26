@@ -4,44 +4,49 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    private static int stageIndex = 0;
+    private static int m_StageIndex = 0;
     public static int StageIndex
     {
-        get { return stageIndex; }
-        set { stageIndex = value; }
+        get { return m_StageIndex; }
+        set { m_StageIndex = value; }
     }
 
-    private Map map;
+    private Map m_Map;
+    public Map Map
+    {
+        get { return m_Map; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        // プレハブからGameObject型を取得
+        // プレハブからGameObject型を取得    
+        GameObject map = null;
+
+        switch (m_StageIndex)
         {
-            GameObject map = null;
+            case 0:
+                map = (GameObject)Resources.Load("Stage02");
+                break;
 
-            switch (stageIndex)
-            {
-                case 0:
-                    map = (GameObject)Resources.Load("Stage01");
-                    break;
-
-                case 1:
-                    break;
-            }
-
-            // インスタンスを生成
-            Instantiate(map, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+            case 1:
+                break;
         }
 
-        // Mapの初期化
+        // インスタンスを生成
+        Instantiate(map, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+
+        m_Map = map.GetComponent<Map>();
+        m_Map.Initialize();
+
+        GameObject player = (GameObject)Resources.Load("Player");
+        Instantiate(player, m_Map.StartPosition, Quaternion.identity);
+
         {
-            GameObject map = GameObject.Find("WallFactory");
-            Map script = map.GetComponent<Map>();
-            script.Initialize();
+            GameObject obj = GameObject.Find("Judgement");
+            Judgement judgement = obj.GetComponent<Judgement>();
+            judgement.Initialize();
         }
-
-        // Playerの初期化
-
 
     }
 

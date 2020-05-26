@@ -5,271 +5,203 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private enum DirectionType
+    {
+        Right = 0,
+        Left,
+        Up,
+        Down
+    }
 
-    Vector3 direction;
-    public AudioClip sound;
-    AudioSource audioSource;
-    const int bpm = 60;
-    int frame = 0;
+    private Map m_Map;
+    private Judgement m_Judgement;
+    private bool m_Move;
+    private int m_Direction = 0;
+    private DirectionType m_DirectionType = DirectionType.Down;
 
-    GameObject map;
-    Map script;
-    GameObject respone;
+    // 線形補間用
+    private Vector3 m_StartPosition;
+    private Vector3 m_EndPosition;
+    private float m_Weight;
+    private float m_Value;
+    private float m_Speed;
 
-    GameObject bgm;
-    Sound soundScript;
+    public bool IsMove
+    {
+        get { return m_Move; }
+        set { m_Move = value; }
+    }
+    public int Direction
+    {
+        get { return m_Direction; }
+    }
+    public Vector3 StartPosition
+    {
+        get { return m_StartPosition; }
+        set { m_StartPosition = value; }
+    }
+    public Vector3 EndPosition
+    {
+        get { return m_EndPosition; }
+        set { m_EndPosition = value; }
+    }
+    public float Weight
+    {
+        set { m_Weight = value; }
+    }
+    public float Value
+    {
+        set { m_Value = value; }
+    }
+    public float Speed
+    {
+        get { return m_Speed; }
+        set
+        {
+            float val = value;
+            if (val < 0.0f) val = 0.001f;
+            if (1.0f < val) val = 1.0f;
+                m_Speed = val;
+        }
+    }
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-
-        map = GameObject.Find("WallFactory");
-        script = map.GetComponent<Map>();
-
-        respone = GameObject.Find("Respone");
-
-        bgm = GameObject.Find("Sound");
-        soundScript = bgm.GetComponent<Sound>();
-    }
-
-
-    async void Respone(int Index)
-    {
-        await Task.Delay(1000);
-        int[] map = script.GetMap;
-
-        if (map[Index] == (int)Map.MapType.Hole)
         {
-            this.transform.position = respone.transform.position;
+            GameObject obj = GameObject.Find("StageManager");
+            StageManager stageManager = obj.GetComponent<StageManager>();
+            m_Map = stageManager.Map;
         }
+        {
+            GameObject obj = GameObject.Find("Judgement");
+            m_Judgement = obj.GetComponent<Judgement>();
+        }
+        m_Move = false;
+        m_Weight = 0.0f;
+        m_Value = 0.0f;
+        m_Speed = 0.05f;
+
+        Animator anim = this.GetComponent<Animator>();
+        anim.SetInteger("Direction", (int)m_DirectionType);
     }
 
     void Update()
     {
-         // マップ情報
-         int[] map = script.GetMap;
-         int mapX = script.m_MapX;
-         int mapY = script.m_MapY;
-        
-         // オレの位置
-         int index = script.GetMapIndex((Vector2)this.transform.position);
-
-        if (soundScript.IsActive())
+        // 動いている
+        if (m_Move)
         {
-            MeshRenderer mr = GetComponent<MeshRenderer>();
-            Color col;
-            col.r = 1.0f;
-            col.g = col.b = 0.0f;
-            col.a = 1.0f;
-            mr.material.color = col;
-
-            // 右トリガー入力 
-            if (Input.GetKeyUp(KeyCode.RightArrow))
+            if ((m_Weight += m_Value) >= 1.0f)
             {
-                Debug.Log("よう！それって右かい？");
-                // 壁にぶつかった
-                bool hit = false;
-                int nextIndex = 0;
-
-                for (int i = 0; !hit; i++)
-                {
-                    nextIndex = index + i;
-
-
-                    // 穴だったら
-                    if (map[nextIndex] == (int)Map.MapType.Hole)
-                    {
-                        hit = true;
-                        Debug.Log("それって穴かい？");
-
-                        // 配列番号から位置を算出
-                        Vector3 nextPos;
-                        nextPos.x = (float)(nextIndex % mapX) + 0.5f;
-                        nextPos.y = ((float)(nextIndex / mapX) + 0.5f) * -1.0f;
-                        nextPos.z = 0.0f;
-
-                        // 位置更新
-                        this.transform.position = nextPos;
-                    }
-
-                    // 進む先が壁だったら
-                    if (map[nextIndex] == (int)Map.MapType.Wall)
-                    {
-                        hit = true;
-                        nextIndex--;
-
-                        // 配列番号から位置を算出
-                        Vector3 nextPos;
-                        nextPos.x = (float)(nextIndex % mapX) + 0.5f;
-                        nextPos.y = ((float)(nextIndex / mapX) + 0.5f) * -1.0f;
-                        nextPos.z = 0.0f;
-
-                        // 位置更新
-                        this.transform.position = nextPos;
-                    }
-                }
-
+                SetPosition(m_EndPosition); // 移動処理
+                m_Move = false;             // 移動フラグ
             }
-
-            // 左トリガー入力
-            if (Input.GetKeyUp(KeyCode.LeftArrow))
+            else
             {
-                Debug.Log("よう！それって左かい？");
-                // 壁にぶつかった
-                bool hit = false;
-                int nextIndex = 0;
-
-                for (int i = 0; !hit; i++)
-                {
-                    nextIndex = index - i;
-
-                    // 穴だったら
-                    if (map[nextIndex] == (int)Map.MapType.Hole)
-                    {
-                        hit = true;
-                        Debug.Log("それって穴かい？");
-
-                        // 配列番号から位置を算出
-                        Vector3 nextPos;
-                        nextPos.x = (float)(nextIndex % mapX) + 0.5f;
-                        nextPos.y = ((float)(nextIndex / mapX) + 0.5f) * -1.0f;
-                        nextPos.z = 0.0f;
-
-                        // 位置更新
-                        this.transform.position = nextPos;
-                    }
-
-                    // 進む先が壁だったら
-                    if (map[nextIndex] == (int)Map.MapType.Wall)
-                    {
-                        hit = true;
-                        nextIndex++;
-
-                        // 配列番号から位置を算出
-                        Vector3 nextPos;
-                        nextPos.x = (float)(nextIndex % mapX) + 0.5f;
-                        nextPos.y = ((float)(nextIndex / mapX) + 0.5f) * -1.0f;
-                        nextPos.z = 0.0f;
-
-                        // 位置更新
-                        this.transform.position = nextPos;
-
-                    }
-                }
-
-            }
-
-            // 上トリガー入力
-            if (Input.GetKeyUp(KeyCode.UpArrow))
-            {
-                Debug.Log("よう！それって上かい？");
-                // 壁にぶつかった
-                bool hit = false;
-                int nextIndex = 0;
-
-                for (int i = 0; !hit; i++)
-                {
-                    nextIndex = index - i * mapX;
-
-
-                    // 穴だったら
-                    if (map[nextIndex] == (int)Map.MapType.Hole)
-                    {
-                        hit = true;
-                        Debug.Log("それって穴かい？");
-
-                        // 配列番号から位置を算出
-                        Vector3 nextPos;
-                        nextPos.x = (float)(nextIndex % mapX) + 0.5f;
-                        nextPos.y = ((float)(nextIndex / mapX) + 0.5f) * -1.0f;
-                        nextPos.z = 0.0f;
-
-                        // 位置更新
-                        this.transform.position = nextPos;
-                    }
-
-                    // 進む先が壁だったら
-                    if (map[nextIndex] == (int)Map.MapType.Wall)
-                    {
-                        hit = true;
-                        nextIndex += mapX;
-
-                        // 配列番号から位置を算出
-                        Vector3 nextPos;
-                        nextPos.x = (float)(nextIndex % mapX) + 0.5f;
-                        nextPos.y = ((float)(nextIndex / mapX) + 0.5f) * -1.0f;
-                        nextPos.z = 0.0f;
-
-                        // 位置更新
-                        this.transform.position = nextPos;
-                    }
-                }
-
-            }
-
-            // 下トリガー入力
-            if (Input.GetKeyUp(KeyCode.DownArrow))
-            {
-                Debug.Log("よう！それって下かい？");
-                // 壁にぶつかった
-                bool hit = false;
-                int nextIndex = 0;
-
-                for (int i = 0; !hit; i++)
-                {
-                    nextIndex = index + i * mapX;
-
-
-                    // 穴だったら
-                    if (map[nextIndex] == (int)Map.MapType.Hole)
-                    {
-                        hit = true;
-                        Debug.Log("それって穴かい？");
-
-                        // 配列番号から位置を算出
-                        Vector3 nextPos;
-                        nextPos.x = (float)(nextIndex % mapX) + 0.5f;
-                        nextPos.y = ((float)(nextIndex / mapX) + 0.5f) * -1.0f;
-                        nextPos.z = 0.0f;
-
-                        // 位置更新
-                        this.transform.position = nextPos;
-                    }
-
-                    // 進む先が壁だったら
-                    if (map[nextIndex] == (int)Map.MapType.Wall)
-                    {
-                        hit = true;
-                        nextIndex -= mapX;
-
-                        // 配列番号から位置を算出
-                        Vector3 nextPos;
-                        nextPos.x = (float)(nextIndex % mapX) + 0.5f;
-                        nextPos.y = ((float)(nextIndex / mapX) + 0.5f) * -1.0f;
-                        nextPos.z = 0.0f;
-
-                        // 位置更新
-                        this.transform.position = nextPos;
-                    }
-                }
-
+                Vector3 nextPosition = new Vector3();
+                // 線形補間
+                nextPosition = m_StartPosition * (1.0f - m_Weight) + m_EndPosition * m_Weight;
+                SetPosition(nextPosition);  // 移動処理
             }
         }
         else
         {
-            MeshRenderer mr = GetComponent<MeshRenderer>();
-            Color col;
-            col.r = col.g = col.b = col.a = 1.0f;
-            mr.material.color = col;
-        }
+            // マップ情報
+            int[] map = m_Map.GetMap;
 
-        // ゴールだったら
-        if (map[index] == (int)Map.MapType.Goal)
-        {
-            Debug.Log("それってゴールかい？");
-        }
+            bool move = false;
 
-        Respone(index);
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                SetDirection(DirectionType.Right);
+                move = true;
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                SetDirection(DirectionType.Left);
+                move = true;
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                SetDirection(DirectionType.Up);
+                move = true;
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                SetDirection(DirectionType.Down);
+                move = true;
+            }
+
+            // オレの位置
+            int index = m_Map.GetMapIndex(this);
+
+            for (int i = 1; move; i++)
+            {
+                m_Move = true;          // 移動フラグ
+                int nextIndex = index + i * m_Direction;
+
+                if (map[nextIndex] == (int)Map.MapType.Floor || map[nextIndex] == (int)Map.MapType.Non)
+                {
+                    continue;
+                }
+
+                switch (map[nextIndex])
+                {
+                    case (int)Map.MapType.Wall:
+                        // 壁
+                        nextIndex -= m_Direction;
+                        m_Judgement.Wall();
+                        break;
+
+                    case (int)Map.MapType.Hole:
+                        // 穴
+                        m_Judgement.Hole(this);
+                        break;
+
+                    case (int)Map.MapType.Goal:
+                        // ゴール
+                        m_Judgement.Goal();
+                        break;
+                }
+
+                // 線形補間の情報
+                m_StartPosition = m_Map.GetMapPosition(index);      // 現在地を保存
+                m_EndPosition = m_Map.GetMapPosition(nextIndex);    // 進行先を保存
+                m_Weight = 0.0f;        // 割合を初期化
+                m_Value = m_Speed / i;  // 進むマス数によって速度の変更
+
+                break;
+            }
+        }
     }
 
+    private void SetPosition(Vector3 position)
+    {
+        this.transform.position = position;
+    }
+
+    private void SetDirection(DirectionType dir)
+    {
+        m_DirectionType = dir;
+        Animator anim = this.GetComponent<Animator>();
+        anim.SetInteger("Direction", (int)m_DirectionType);
+
+        switch (dir)
+        {
+            case DirectionType.Right:
+                m_Direction = 1;
+                break;
+
+            case DirectionType.Left:
+                m_Direction = -1;
+                break;
+
+            case DirectionType.Up:
+                m_Direction = -m_Map.m_MapX;
+                break;
+
+            case DirectionType.Down:
+                m_Direction = m_Map.m_MapX;
+                break;
+        }
+    }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private enum DirectionType
+    public enum DirectionType
     {
         Right = 0,
         Left,
@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
 
     private Map m_Map;
     private Judgement m_Judgement;
+    private Gimmick m_Gimmick;
+
     private bool m_Move;
     private int m_Direction = 0;
     private DirectionType m_DirectionType = DirectionType.Down;
@@ -76,6 +78,11 @@ public class Player : MonoBehaviour
             GameObject obj = GameObject.Find("Judgement");
             m_Judgement = obj.GetComponent<Judgement>();
         }
+        {
+            GameObject obj = GameObject.Find("Gimmick");
+            m_Gimmick = obj.GetComponent<Gimmick>();
+        }
+
         m_Move = false;
         m_Weight = 0.0f;
         m_Value = 0.0f;
@@ -87,12 +94,15 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(m_Map.GetMapType(this));
+        m_Gimmick.Action(m_Map.GetMapType(this), this);
+
         // 動いている
         if (m_Move)
         {
             if ((m_Weight += m_Value) >= 1.0f)
             {
-                SetPosition(m_EndPosition); // 移動処理
+                SetEndPosition(); // 移動処理
                 m_Move = false;             // 移動フラグ
             }
             else
@@ -103,80 +113,69 @@ public class Player : MonoBehaviour
                 SetPosition(nextPosition);  // 移動処理
             }
         }
-        else
-        {
-            // マップ情報
-            int[] map = m_Map.GetMap;
-
-            bool move = false;
-
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                SetDirection(DirectionType.Right);
-                move = true;
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                SetDirection(DirectionType.Left);
-                move = true;
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                SetDirection(DirectionType.Up);
-                move = true;
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                SetDirection(DirectionType.Down);
-                move = true;
-            }
-
-            // オレの位置
-            int index = m_Map.GetMapIndex(this);
-
-            for (int i = 1; move; i++)
-            {
-                m_Move = true;          // 移動フラグ
-                int nextIndex = index + i * m_Direction;
-
-                if (map[nextIndex] == (int)Map.MapType.Floor || map[nextIndex] == (int)Map.MapType.Non)
-                {
-                    continue;
-                }
-
-                switch (map[nextIndex])
-                {
-                    case (int)Map.MapType.Wall:
-                        // 壁
-                        nextIndex -= m_Direction;
-                        m_Judgement.Wall();
-                        break;
-
-                    case (int)Map.MapType.Hole:
-                        // 穴
-                        m_Judgement.Hole(this);
-                        break;
-
-                    case (int)Map.MapType.Goal:
-                        // ゴール
-                        m_Judgement.Goal();
-                        break;
-                }
-
-                // 線形補間の情報
-                m_StartPosition = m_Map.GetMapPosition(index);      // 現在地を保存
-                m_EndPosition = m_Map.GetMapPosition(nextIndex);    // 進行先を保存
-                m_Weight = 0.0f;        // 割合を初期化
-                m_Value = m_Speed / i;  // 進むマス数によって速度の変更
-
-                break;
-            }
-        }
     }
 
     private void SetPosition(Vector3 position)
     {
         this.transform.position = position;
+    }
+
+    public void SetEndPosition()
+    {
+        SetPosition(m_EndPosition);
+    }
+
+    public void PlayerMove(DirectionType dir)
+    {
+        // マップ情報
+        int[] map = m_Map.MapData;
+        bool move = true;
+
+        SetDirection(dir);
+
+        // オレの位置
+        int index = m_Map.GetMapIndex(this);
+
+        for (int i = 1; move; i++)
+        {
+            m_Move = true;          // 移動フラグ
+            int nextIndex = index + i * m_Direction;
+
+            // 床だったらスルー
+            if (map[nextIndex] == (int)Map.MapType.Floor)
+            {
+                continue;
+            }
+
+            switch (map[nextIndex])
+            {
+                case (int)Map.MapType.Wall:
+                    // 壁
+                    nextIndex -= m_Direction;
+                    m_Judgement.Wall();
+                    StartMove(i, index, nextIndex, ref move);
+                    break;
+
+                case (int)Map.MapType.Hole:
+                    // 穴
+                    m_Judgement.Hole(this);
+                    StartMove(i, index, nextIndex, ref move);
+                    break;
+
+                case (int)Map.MapType.Goal:
+                    // ゴール
+                    m_Judgement.Goal();
+                    StartMove(i, index, nextIndex, ref move);
+                    break;
+            }
+        }
+    }
+
+    // プレイヤーの移動停止
+    public void PlayerStop()
+    {
+        m_Move = false;
+       // m_StartPosition = m_EndPosition = this.transform.position;
     }
 
     private void SetDirection(DirectionType dir)
@@ -203,5 +202,16 @@ public class Player : MonoBehaviour
                 m_Direction = m_Map.m_MapX;
                 break;
         }
+    }
+
+    private void StartMove(int i, int index, int nextIndex, ref bool move)
+    {
+        // 線形補間の情報
+        m_StartPosition = m_Map.GetMapPosition(index);      // 現在地を保存
+        m_EndPosition = m_Map.GetMapPosition(nextIndex);    // 進行先を保存
+        m_Weight = 0.0f;        // 割合を初期化
+        m_Value = m_Speed / i;  // 進むマス数によって速度の変更
+
+        move = false;
     }
 }

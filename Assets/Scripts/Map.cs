@@ -11,7 +11,7 @@ public class Map : MonoBehaviour
     public int m_MapY;
 
     private int[] m_Map;  
-    public int[] GetMap
+    public int[] MapData
     {
         get { return m_Map; }
     }
@@ -22,45 +22,44 @@ public class Map : MonoBehaviour
         get { return m_StartPosition; }
     }
 
-   public enum MapType
+    public enum MapType
     {
         Non = 0,
         Hole,
         Floor,
         Wall,
+        Note,           //ノーツ
+        Barrage,        //連打
+        Arrow,          //方向転換
         Start,
         Goal,
         Max
     }
-
     int[,] num;
 
-    // Vector2型からm_Map配列の添え字を算出
+    // m_Map配列の添え字を返す
     public int GetMapIndex(Vector2 Position)
     {
         int index = m_MapX * (int)-Position.y + (int)Position.x;
         
         return index;
     }
-
     public int GetMapIndex(Vector3 Position)
     {
         int index = m_MapX * (int)-Position.y + (int)Position.x;
 
         return index;
     }
-
-    // GameObject型からm_Map配列の添え字を算出
     public int GetMapIndex(GameObject obj)
     {
         return GetMapIndex(obj.transform.position);
     }
-
     public int GetMapIndex(Player obj)
     {
         return GetMapIndex(obj.transform.position);
     }
 
+    // 添え字から位置を返す
     private Vector3 OffsetPosition(Vector3 pos)
     {
         pos.x += 0.5f;
@@ -74,6 +73,64 @@ public class Map : MonoBehaviour
         pos.y = (float)(index / m_MapX) * -1.0f;
         pos.z = 0.0f;
         return OffsetPosition(pos);
+    }
+
+    // 位置から乗っているタイルタイプを返す
+    public MapType GetMapType(Vector3 pos)
+    {
+        return (MapType)m_Map[GetMapIndex(pos)];
+    }
+    public MapType GetMapType(GameObject obj)
+    {
+        return GetMapType(obj.transform.position);
+    }
+    public MapType GetMapType(Player player)
+    {
+        return (MapType)m_Map[GetMapIndex(player)];
+    }
+
+    // 今いるタイルにどれくらい乗っているか（1.0が真ん中）
+    public float GetTilePosition(GameObject obj)
+    {
+        float f = 0.0f;
+        Vector3 pos = GetMapPosition(GetMapIndex(obj));
+
+        // 縦移動中
+        if (obj.transform.position.x == pos.x)
+        {
+            f = Mathf.Max(obj.transform.position.y, pos.y) -
+                Mathf.Min(obj.transform.position.y, pos.y);
+        }
+
+        // 横移動中
+        if (obj.transform.position.y == pos.y)
+        {
+            f = Mathf.Max(obj.transform.position.x, pos.x) -
+                Mathf.Min(obj.transform.position.x, pos.x);
+        }
+
+        return (1.0f - f);
+    }
+    public float GetTilePosition(Player player)
+    {
+        float f = 0.0f;
+        Vector3 pos = GetMapPosition(GetMapIndex(player));
+
+        // 縦移動中
+        if (player.transform.position.x == pos.x)
+        {
+            f = Mathf.Max(player.transform.position.y, pos.y) -
+                Mathf.Min(player.transform.position.y, pos.y);
+        }
+
+        // 横移動中
+        if (player.transform.position.y == pos.y)
+        {
+            f = Mathf.Max(player.transform.position.x, pos.x) -
+                Mathf.Min(player.transform.position.x, pos.x);
+        }
+
+        return (1.0f - f);
     }
 
     public void Initialize()
@@ -125,6 +182,12 @@ public class Map : MonoBehaviour
             {
                 continue;
             }
+            
+            if (nameList[i].StartsWith("Oil")){
+                m_Map[GetMapIndex(positionList[i])] = 0;
+                continue;
+            }
+
             switch (nameList[i])
             {
                 case "block_147":
@@ -143,35 +206,21 @@ public class Map : MonoBehaviour
                     m_Map[GetMapIndex(positionList[i])] = (int)MapType.Goal;
                     break;
 
+                case "block_211":
+                    m_Map[GetMapIndex(positionList[i])] = (int)MapType.Arrow;
+                    break;
+
+                case "block_315":
+                    m_Map[GetMapIndex(positionList[i])] = (int)MapType.Note;
+                    break;
+
                 case "Konishi":
-                    m_Map[GetMapIndex(positionList[i])] = (int)MapType.Non;
+                    m_Map[GetMapIndex(positionList[i])] = (int)MapType.Arrow;
                     m_StartPosition = OffsetPosition(positionList[i]);
                     break;
             }
         }
 
-
-
-
-        // 穴の取得
-        {
-            GameObject[] holes = GameObject.FindGameObjectsWithTag("Hole");
-
-            foreach(GameObject i in holes)
-            {
-                m_Map[GetMapIndex(i)] = (int)MapType.Hole;
-            }
-        }
-
-        // 床の取得
-        {
-            GameObject[] floors = GameObject.FindGameObjectsWithTag("Floor");
-
-            foreach(GameObject i in floors)
-            {
-                m_Map[GetMapIndex(i)] = (int)MapType.Floor;
-            }
-        }
     
         //// ゴールの取得
         //{
@@ -191,12 +240,5 @@ public class Map : MonoBehaviour
             }
         }
 
-        int breakpoint = 0;
-
-    }
-
-    void Update()
-    {
-        
     }
 }

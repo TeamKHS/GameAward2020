@@ -18,12 +18,12 @@ public class MainCamera : MonoBehaviour
 
         if (map == null)
         {
-            this.map = GameObject.Find("Stage02(Clone)").GetComponent<Map>();
+            this.map = GameObject.Find("Stage03(Clone)").GetComponent<Map>();
         }
 
         if (Stage == null)
         {
-            this.Stage = GameObject.Find("Stage02(Clone)");
+            this.Stage = GameObject.Find("Stage03(Clone)");
             CellLength = Stage.GetComponent<Grid>().cellSize.x;
         }
 

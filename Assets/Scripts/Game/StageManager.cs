@@ -26,7 +26,7 @@ public class StageManager : MonoBehaviour
         switch (m_StageIndex)
         {
             case 0:
-                map = (GameObject)Resources.Load("Stage02");
+                map = (GameObject)Resources.Load("Stage03");
                 break;
 
             case 1:

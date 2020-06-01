@@ -210,6 +210,10 @@ public class Map : MonoBehaviour
                     m_Map[GetMapIndex(positionList[i])] = (int)MapType.Arrow;
                     break;
 
+                case "block_772":
+                    m_Map[GetMapIndex(positionList[i])] = (int)MapType.Barrage;
+                    break;
+
                 case "block_315":
                     m_Map[GetMapIndex(positionList[i])] = (int)MapType.Note;
                     break;

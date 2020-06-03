@@ -15,6 +15,10 @@ public class Gimmick : MonoBehaviour
             case Map.MapType.Arrow:
                 ArrowAction(player);
                 break;
+
+            case Map.MapType.Barrage:
+                BarrageAction();
+                break;
         }
     }
 
@@ -28,5 +32,10 @@ public class Gimmick : MonoBehaviour
     {
         Arrow arrow = this.GetComponent<Arrow>();
         arrow.Action(player);
+    }
+
+    private void BarrageAction()
+    {
+        this.GetComponent<Barrage>().Action();
     }
 }

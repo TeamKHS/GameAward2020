@@ -6,10 +6,7 @@ public class Arrow : MonoBehaviour
 {
     public void Action(Player player)
     {
-        Debug.Log("ArrowAction");
         Map map = GameObject.Find("StageManager").GetComponent<StageManager>().Map;
-
-        Debug.Log(map.GetTilePosition(player));
 
         if (0.9f <= map.GetTilePosition(player))
         {

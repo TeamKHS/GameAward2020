@@ -6,10 +6,7 @@ public class Note : MonoBehaviour
 {
     public void Action(Player player)
     {
-        Debug.Log("NoteAction");
         Map map = GameObject.Find("StageManager").GetComponent<StageManager>().Map;
-
-        Debug.Log(map.GetTilePosition(player));
 
         if (map.GetTilePosition(player) <= 0.8f)
         {

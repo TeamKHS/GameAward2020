@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     private Vector3 m_EndPosition;
     private float m_Weight;
     private float m_Value;
-    private float m_Speed;
+    private float m_Time;
 
     public bool IsMove
     {
@@ -55,17 +55,6 @@ public class Player : MonoBehaviour
     {
         set { m_Value = value; }
     }
-    public float Speed
-    {
-        get { return m_Speed; }
-        set
-        {
-            float val = value;
-            if (val < 0.0f) val = 0.001f;
-            if (1.0f < val) val = 1.0f;
-                m_Speed = val;
-        }
-    }
 
     void Start()
     {
@@ -86,21 +75,24 @@ public class Player : MonoBehaviour
         m_Move = false;
         m_Weight = 0.0f;
         m_Value = 0.0f;
-        m_Speed = 0.05f;
-
+        m_Time = 0.0f;
         Animator anim = this.GetComponent<Animator>();
         anim.SetInteger("Direction", (int)m_DirectionType);
     }
 
     void Update()
     {
-        Debug.Log(m_Map.GetMapType(this));
+        m_Time += Time.deltaTime;
+        Debug.Log(m_Time);
+        if (Input.GetKeyDown(KeyCode.Space))
+            Singleton<SoundPlayer>.Instance.Play("se");
+
         m_Gimmick.Action(m_Map.GetMapType(this), this);
 
         // 動いている
         if (m_Move)
         {
-            if ((m_Weight += m_Value) >= 1.0f)
+            if ((m_Weight += (m_Value * Time.deltaTime)) >= 1.0f)
             {
                 SetEndPosition(); // 移動処理
                 m_Move = false;             // 移動フラグ
@@ -206,11 +198,15 @@ public class Player : MonoBehaviour
 
     private void StartMove(int i, int index, int nextIndex, ref bool move)
     {
+        // 次のマス目に到着する時間
+        float time = m_Map.NoteTiming.GetTiming() - m_Time;
+            
+
         // 線形補間の情報
         m_StartPosition = m_Map.GetMapPosition(index);      // 現在地を保存
         m_EndPosition = m_Map.GetMapPosition(nextIndex);    // 進行先を保存
         m_Weight = 0.0f;        // 割合を初期化
-        m_Value = m_Speed / i;  // 進むマス数によって速度の変更
+        m_Value = 1.0f / time;  // 進むマス数によって速度の変更
 
         move = false;
     }

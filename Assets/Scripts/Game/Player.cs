@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
             GameObject obj = GameObject.Find("Gimmick");
             m_Gimmick = obj.GetComponent<Gimmick>();
         }
-
+       
         m_Move = false;
         m_Weight = 0.0f;
         m_Value = 0.0f;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class TextController : BaseMeshEffect
 {
@@ -25,7 +26,7 @@ public class TextController : BaseMeshEffect
 
     void TextMove( ref List<UIVertex> uIVertices)
     {
-        for (int c = 0; c < uIVertices.Count; c++)
+        for (int c = 0; c < uIVertices.Count; c += 6) 
         {
             float rad = Random.Range(0, 360) * Mathf.Deg2Rad;
             Vector3 dir = new Vector3(radius * Mathf.Cos(rad), radius * Mathf.Sin(rad), 0);

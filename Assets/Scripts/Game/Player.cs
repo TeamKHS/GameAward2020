@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
         m_Move = false;
         m_Weight = 0.0f;
         m_Value = 0.0f;
-        m_Speed = 0.05f;
+        m_Speed = 0.03f;
 
         Animator anim = this.GetComponent<Animator>();
         anim.SetInteger("Direction", (int)m_DirectionType);
@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
             if ((m_Weight += m_Value) >= 1.0f)
             {
                 SetEndPosition(); // 移動処理
-                m_Move = false;             // 移動フラグ
+                m_Move = false;   // 移動フラグ
             }
             else
             {

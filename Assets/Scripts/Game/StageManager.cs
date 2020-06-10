@@ -26,7 +26,7 @@ public class StageManager : MonoBehaviour
         switch (m_StageIndex)
         {
             case 0:
-                map = (GameObject)Resources.Load("Stage03");
+                Stage03(ref map);
                 break;
 
             case 1:
@@ -51,12 +51,15 @@ public class StageManager : MonoBehaviour
             Judgement judgement = obj.GetComponent<Judgement>();
             judgement.Initialize();
         }
-
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Stage03(ref GameObject map)
     {
+        map = (GameObject)Resources.Load("Stage03");
+
+        Singleton<SoundPlayer>.Instance.AddResource("music", "amygdata");
+        Singleton<SoundPlayer>.Instance.AddResource("se", "cursor1");
         
+        //Singleton<SoundPlayer>.Instance.Play("music");
     }
 }

@@ -3905,6 +3905,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be6896311d953848a97cf4a3bc1ad86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 0}
   m_MapX: 20
   m_MapY: 20

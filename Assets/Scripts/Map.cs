@@ -5,23 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class Map : MonoBehaviour
 {
-    public GameObject obj;
-
-    public int m_MapX;
-    public int m_MapY;
-
-    private int[] m_Map;  
-    public int[] MapData
-    {
-        get { return m_Map; }
-    }
-
-    private Vector3 m_StartPosition;
-    public Vector3 StartPosition
-    {
-        get { return m_StartPosition; }
-    }
-
     public enum MapType
     {
         Non = 0,
@@ -35,7 +18,26 @@ public class Map : MonoBehaviour
         Goal,
         Max
     }
-    int[,] num;
+
+    public int m_MapX;
+    public int m_MapY;
+
+    private NoteTiming m_NoteTiming;
+
+    private int[] m_Map;  
+    private Vector3 m_StartPosition;
+    public int[] MapData
+    {
+        get { return m_Map; }
+    }
+    public Vector3 StartPosition
+    {
+        get { return m_StartPosition; }
+    }
+    public NoteTiming NoteTiming
+    {
+        get { return m_NoteTiming; }
+    }
 
     // m_Map配列の添え字を返す
     public int GetMapIndex(Vector2 Position)
@@ -135,6 +137,9 @@ public class Map : MonoBehaviour
 
     public void Initialize()
     {
+        m_NoteTiming = new NoteTiming();
+        m_NoteTiming.Initialize(StageManager.StageIndex);
+
         // 配列サイズ
         int mapNum = m_MapX * m_MapY;
 

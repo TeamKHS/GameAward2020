@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Audio : MonoBehaviour
 {
-    AudioSource m_AudioSource;
+    AudioSource m_Music;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_AudioSource = GetComponent<AudioSource>();
+        m_Music = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(m_AudioSource.time);
+        Debug.Log(m_Music.time);
     }
 }

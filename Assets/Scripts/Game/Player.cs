@@ -113,6 +113,9 @@ public class Player : MonoBehaviour
                 SetPosition(nextPosition);  // 移動処理
             }
         }
+
+        Animator anim = this.GetComponent<Animator>();
+        anim.SetBool("Move", (bool)m_Move);
     }
 
     private void SetPosition(Vector3 position)

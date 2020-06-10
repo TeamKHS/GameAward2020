@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class Note : MonoBehaviour
 {
+    private bool active = true;
+    private int oldIndex = 0;
+
     public void Action(Player player)
     {
-        Debug.Log("NoteAction");
         Map map = GameObject.Find("StageManager").GetComponent<StageManager>().Map;
-
-        Debug.Log(map.GetTilePosition(player));
-
-        if (map.GetTilePosition(player) <= 0.8f)
+        int index = map.GetMapIndex(GameObject.Find("Player"));
+        if (index != oldIndex)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("NoteAction:Success");
-                player.PlayerStop();
-            }
+            active = true;
+        }
+        oldIndex = index;
+
+        if (map.GetTilePosition(player) >= 0.8f)
+        {
+            if (active) Singleton<SoundPlayer>.Instance.Play("se");
+            active = false;
         }
     }
 }

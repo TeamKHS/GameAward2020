@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Pause : MonoBehaviour
 {
-    GameObject bgm;
-    Sound soundScript;
-    bool isPaused = false;
+    //GameObject bgm;
+    //Sound soundScript;
+    //bool isPaused = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        bgm = GameObject.Find("Sound");
-        soundScript = bgm.GetComponent<Sound>();
+        //bgm = GameObject.Find("Sound");
+        //soundScript = bgm.GetComponent<Sound>();
     }
 
     // Update is called once per frame

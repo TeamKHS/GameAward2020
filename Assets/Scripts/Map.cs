@@ -183,8 +183,8 @@ public class Map : MonoBehaviour
                 continue;
             }
             
-            if (nameList[i].StartsWith("Oil")){
-                m_Map[GetMapIndex(positionList[i])] = 0;
+            if (nameList[i].StartsWith("oil")){
+                m_Map[GetMapIndex(positionList[i])] = (int)MapType.Hole;
                 continue;
             }
 

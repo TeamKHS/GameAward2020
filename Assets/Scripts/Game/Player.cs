@@ -82,11 +82,11 @@ public class Player : MonoBehaviour
             GameObject obj = GameObject.Find("Gimmick");
             m_Gimmick = obj.GetComponent<Gimmick>();
         }
-
+       
         m_Move = false;
         m_Weight = 0.0f;
         m_Value = 0.0f;
-        m_Speed = 0.05f;
+        m_Speed = 0.03f;
 
         Animator anim = this.GetComponent<Animator>();
         anim.SetInteger("Direction", (int)m_DirectionType);
@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
             if ((m_Weight += m_Value) >= 1.0f)
             {
                 SetEndPosition(); // 移動処理
-                m_Move = false;             // 移動フラグ
+                m_Move = false;   // 移動フラグ
             }
             else
             {
@@ -113,6 +113,9 @@ public class Player : MonoBehaviour
                 SetPosition(nextPosition);  // 移動処理
             }
         }
+
+        Animator anim = this.GetComponent<Animator>();
+        anim.SetBool("Move", (bool)m_Move);
     }
 
     private void SetPosition(Vector3 position)

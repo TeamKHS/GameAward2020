@@ -55,7 +55,7 @@ public class StageManager : MonoBehaviour
 
     private void Stage03(ref GameObject map)
     {
-        map = (GameObject)Resources.Load("Stage03");
+        map = (GameObject)Resources.Load("Stage04");
 
         Singleton<SoundPlayer>.Instance.AddResource("music", "amygdata");
         Singleton<SoundPlayer>.Instance.AddResource("se", "cursor1");

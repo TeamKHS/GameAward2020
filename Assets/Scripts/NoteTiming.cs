@@ -35,8 +35,15 @@ public class NoteTiming : MonoBehaviour
     private void Stage01()
     {
         // ここにタイミングを書き込む
-        m_Timing.Add(10.0f);
-        m_Timing.Add(20.0f);
-        m_Timing.Add(30.0f);
+        //m_Timing.Add(10.0f);
+        //m_Timing.Add(20.0f);
+        //m_Timing.Add(30.0f);
+        //m_Timing.Add(40.0f);
+        //m_Timing.Add(50.0f);
+
+        for(int i = 1;i<30;i++)
+        {
+            m_Timing.Add(3.0f * i);
+        }
     }
 }

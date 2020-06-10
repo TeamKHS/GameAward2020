@@ -40,7 +40,7 @@ public class Barrage : MonoBehaviour
         {
             score_Text.text = "あと" + score + "回！";
         }
-        if (active && old && Input.GetKeyDown(KeyCode.Space))
+        if (active && old && Input.GetKeyDown(KeyCode.Space) && score > 0)
         {
             score -= 1;
             score_Text.text = "あと" + score.ToString() + "回！";

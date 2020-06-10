@@ -16,25 +16,37 @@ public class Arrow : MonoBehaviour
             }
 
             if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
                 player.PlayerMove(Player.DirectionType.Right);
+                return;
+            }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
                 player.PlayerMove(Player.DirectionType.Left);
+                return;
+            }
             if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
                 player.PlayerMove(Player.DirectionType.Up);
+                return;
+            }
             if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
                 player.PlayerMove(Player.DirectionType.Down);
+                return;
+            }
 
-            // 縦
-            if (Input.GetAxis("Vertical") < -0.1f)
-                player.PlayerMove(Player.DirectionType.Up);
-            if (Input.GetAxis("Vertical") > 0.1f)
-                player.PlayerMove(Player.DirectionType.Down);
+            //// 縦
+            //if (Input.GetAxis("Vertical") < -0.1f)
+            //    player.PlayerMove(Player.DirectionType.Up);
+            //if (Input.GetAxis("Vertical") > 0.1f)
+            //    player.PlayerMove(Player.DirectionType.Down);
 
-            // 横
-            if (Input.GetAxis("Horizontal") > 0.1f)
-                player.PlayerMove(Player.DirectionType.Right);
-            if (Input.GetAxis("Horizontal") < -0.1f)
-                player.PlayerMove(Player.DirectionType.Left);
+            //// 横
+            //if (Input.GetAxis("Horizontal") > 0.1f)
+            //    player.PlayerMove(Player.DirectionType.Right);
+            //if (Input.GetAxis("Horizontal") < -0.1f)
+            //    player.PlayerMove(Player.DirectionType.Left);
 
         }
     }

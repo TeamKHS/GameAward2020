@@ -200,7 +200,12 @@ public class Player : MonoBehaviour
     {
         // 次のマス目に到着する時間
         float time = m_Map.NoteTiming.GetTiming() - m_Time;
-            
+
+        if (time < 0)
+        {
+            Debug.Log("よう！それってバグかい？うちはもう動画提出したよ");
+        }
+
 
         // 線形補間の情報
         m_StartPosition = m_Map.GetMapPosition(index);      // 現在地を保存

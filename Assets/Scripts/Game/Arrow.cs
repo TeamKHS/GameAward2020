@@ -10,10 +10,9 @@ public class Arrow : MonoBehaviour
 
         if (0.9f <= map.GetTilePosition(player))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (player.IsMove)
             {
-                Debug.Log("NoteAction:Success");
-                player.PlayerStop();
+                return;
             }
 
             if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -24,6 +23,19 @@ public class Arrow : MonoBehaviour
                 player.PlayerMove(Player.DirectionType.Up);
             if (Input.GetKeyDown(KeyCode.DownArrow))
                 player.PlayerMove(Player.DirectionType.Down);
+
+            // 縦
+            if (Input.GetAxis("Vertical") < -0.1f)
+                player.PlayerMove(Player.DirectionType.Up);
+            if (Input.GetAxis("Vertical") > 0.1f)
+                player.PlayerMove(Player.DirectionType.Down);
+
+            // 横
+            if (Input.GetAxis("Horizontal") > 0.1f)
+                player.PlayerMove(Player.DirectionType.Right);
+            if (Input.GetAxis("Horizontal") < -0.1f)
+                player.PlayerMove(Player.DirectionType.Left);
+
         }
     }
 }

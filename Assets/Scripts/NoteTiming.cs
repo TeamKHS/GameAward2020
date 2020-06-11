@@ -34,16 +34,23 @@ public class NoteTiming : MonoBehaviour
 
     private void Stage01()
     {
+        float offset = 4.5f;
+        
         // ここにタイミングを書き込む
-        //m_Timing.Add(10.0f);
-        //m_Timing.Add(20.0f);
-        //m_Timing.Add(30.0f);
-        //m_Timing.Add(40.0f);
-        //m_Timing.Add(50.0f);
+        m_Timing.Add(offset + 3.0f);
+        m_Timing.Add(offset + 10.8f);
+        m_Timing.Add(offset + 11.0f);
+        m_Timing.Add(offset + 12.5f);
 
-        for(int i = 1;i<30;i++)
-        {
-            m_Timing.Add(3.0f * i);
-        }
+        m_Timing.Add(15.0f);
+        m_Timing.Add(20.0f);
+        m_Timing.Add(25.0f);
+        m_Timing.Add(30.0f);
+        m_Timing.Add(35.0f);
+
+        //for (int i = 1;i<30;i++)
+        //{
+        //    m_Timing.Add(3.0f * i);
+        //}
     }
 }

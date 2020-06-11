@@ -21,12 +21,14 @@ public class Player : MonoBehaviour
     private int m_Direction = 0;
     private DirectionType m_DirectionType = DirectionType.Down;
 
+    private bool m_Once;
+    private float m_Time;
+
     // 線形補間用
     private Vector3 m_StartPosition;
     private Vector3 m_EndPosition;
     private float m_Weight;
     private float m_Value;
-    private float m_Time;
 
     public bool IsMove
     {
@@ -73,19 +75,27 @@ public class Player : MonoBehaviour
         }
 
         m_Move = false;
+        m_Once = true;
+        m_Time = m_Map.NoteTiming.GetTiming();
+
         m_Weight = 0.0f;
         m_Value = 0.0f;
-        m_Time = 0.0f;
         Animator anim = this.GetComponent<Animator>();
         anim.SetInteger("Direction", (int)m_DirectionType);
     }
 
     void Update()
     {
-        m_Time += Time.deltaTime;
-        Debug.Log(m_Time);
-        if (Input.GetKeyDown(KeyCode.Space))
-            Singleton<SoundPlayer>.Instance.Play("se");
+        if (m_Once)
+        {
+            if (Singleton<SoundPlayer>.Instance.GetPlayTime() >= m_Time)
+            {
+                PlayerMove(Player.DirectionType.Up);
+                m_Once = false;
+            }
+        }
+
+        Debug.Log(Singleton<SoundPlayer>.Instance.GetPlayTime());
 
         m_Gimmick.Action(m_Map.GetMapType(this), this);
 
@@ -199,7 +209,7 @@ public class Player : MonoBehaviour
     private void StartMove(int i, int index, int nextIndex, ref bool move)
     {
         // 次のマス目に到着する時間
-        float time = m_Map.NoteTiming.GetTiming() - m_Time;
+        float time = m_Map.NoteTiming.GetTiming() - Singleton<SoundPlayer>.Instance.GetPlayTime();
 
         if (time < 0)
         {

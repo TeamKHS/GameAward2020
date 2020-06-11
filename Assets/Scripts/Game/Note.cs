@@ -10,18 +10,16 @@ public class Note : MonoBehaviour
 
     public void Action(Player player)
     {
-        Debug.Log("NoteAction");
         Map map = GameObject.Find("StageManager").GetComponent<StageManager>().Map;
 
-        Debug.Log(map.GetTilePosition(player));
-
-        if (map.GetTilePosition(player) <= 0.8f)
+        if (map.GetTilePosition(player) >= 0.5f)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("NoteAction:Success");
+                Debug.Log("NoteAction:Success" + map.GetTilePosition(player));
+                
                 StartCoroutine(NoteActionDrawStart());
-                player.PlayerStop();
+                Singleton<SoundPlayer>.Instance.PlaySE("se");
             }
         }
     }

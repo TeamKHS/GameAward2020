@@ -26,7 +26,7 @@ public class StageManager : MonoBehaviour
         switch (m_StageIndex)
         {
             case 0:
-                map = (GameObject)Resources.Load("Stage02");
+                map = (GameObject)Resources.Load("Stage03");
                 break;
 
             case 1:
@@ -34,13 +34,17 @@ public class StageManager : MonoBehaviour
         }
 
         // インスタンスを生成
-        Instantiate(map, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+        {
+            map = Instantiate(map, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+            map.name = "Stage";
 
-        m_Map = map.GetComponent<Map>();
-        m_Map.Initialize();
+            m_Map = map.GetComponent<Map>();
+            m_Map.Initialize();
 
-        GameObject player = (GameObject)Resources.Load("Player");
-        Instantiate(player, m_Map.StartPosition, Quaternion.identity);
+            GameObject player = (GameObject)Resources.Load("Player");
+            player = Instantiate(player, m_Map.StartPosition, Quaternion.identity);
+            player.name = "Player";
+        }
 
         {
             GameObject obj = GameObject.Find("Judgement");

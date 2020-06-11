@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
     private float m_Weight;
     private float m_Value;
 
+    static int cnt = 0;
+
     public bool IsMove
     {
         get { return m_Move; }
@@ -82,6 +84,8 @@ public class Player : MonoBehaviour
         m_Value = 0.0f;
         Animator anim = this.GetComponent<Animator>();
         anim.SetInteger("Direction", (int)m_DirectionType);
+
+        cnt = 1;
     }
 
     void Update()
@@ -96,6 +100,11 @@ public class Player : MonoBehaviour
         }
 
         Debug.Log(Singleton<SoundPlayer>.Instance.GetPlayTime());
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log(cnt + "回目Timing:" + Singleton<SoundPlayer>.Instance.GetPlayTime());
+            cnt++;
+        }
 
         m_Gimmick.Action(m_Map.GetMapType(this), this);
 

@@ -38,7 +38,7 @@ public class Note : MonoBehaviour
             m_Success = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !m_Success)
+        if (Input.GetKey(KeyCode.Space) && !m_Success)
         {
             m_Success = true;
             StartCoroutine(NoteActionDrawStart());

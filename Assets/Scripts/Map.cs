@@ -239,7 +239,7 @@ public class Map : MonoBehaviour
                     break;
 
                 case "block_0":
-                    m_Map[GetMapIndex(positionList[i])] = (int)MapType.Arrow;
+                    m_Map[GetMapIndex(positionList[i])] = (int)MapType.Start;
                     m_StartPosition = OffsetPosition(positionList[i]);
                     break;
             }

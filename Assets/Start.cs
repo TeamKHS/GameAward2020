@@ -7,6 +7,7 @@ public class Start : MonoBehaviour
 {
     public void OnClick()
     {
-        FadeManager.Instance.LoadScene("Main", 2.0f);
+        StageManager.StageIndex = 0;
+        FadeManager.Instance.LoadScene("Game", 2.0f);
     }
 }

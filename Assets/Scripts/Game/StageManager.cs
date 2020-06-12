@@ -26,7 +26,7 @@ public class StageManager : MonoBehaviour
         switch (m_StageIndex)
         {
             case 0:
-                Stage03(ref map);
+                Stage00(ref map);
                 break;
 
             case 1:
@@ -53,7 +53,7 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    private void Stage03(ref GameObject map)
+    private void Stage00(ref GameObject map)
     {
         map = (GameObject)Resources.Load("Stage04");
 

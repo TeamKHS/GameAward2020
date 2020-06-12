@@ -79,8 +79,12 @@ public class Judgement : MonoBehaviour
         Debug.Log("死");
 
         player.PlayerStop();
-        m_Status = Status.Non;
+        //m_Status = Status.Non;
 
+        if (m_Time>5)
+        {
+            FadeManager.Instance.LoadScene("Gameover", 2.0f);
+        }
     }
 
     public void Wall()

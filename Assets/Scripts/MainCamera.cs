@@ -9,8 +9,30 @@ public class MainCamera : MonoBehaviour
     private GameObject Stage = null;
     private Map map = null;
     private float CellLength = 0;
+
+    private bool m_Active = false;
+    public bool Active
+    {
+        set { m_Active = value; }
+    }
+
+    public void Initialize()
+    {
+        this.Player = GameObject.Find("Player");
+        this.map = GameObject.Find("Stage").GetComponent<Map>();
+        this.Stage = GameObject.Find("Stage");
+        CellLength = Stage.GetComponent<Grid>().cellSize.x;
+
+        m_Active = true;
+    }
+
     void Update()
     {
+        if (!m_Active)
+        {
+            return;
+        }
+
         if (Player == null)
         {
             this.Player = GameObject.Find("Player");

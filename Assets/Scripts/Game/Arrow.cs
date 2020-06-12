@@ -56,20 +56,20 @@ public class Arrow : MonoBehaviour
                 m_Active = false;
                 return;
             }
-        }
 
-        if (!player.IsMove)
-        {
-            m_Time += Time.deltaTime;
-
-            // 止まってから死亡までの許容時間
-            if (0.1f <= m_Time)
+            if (!player.IsMove)
             {
-                Judgement judgement = GameObject.Find("Judgement").GetComponent<Judgement>();
-                judgement.GameOver();
+                m_Time += Time.deltaTime;
+
+                // 止まってから死亡までの許容時間
+                if (0.1f <= m_Time)
+                {
+                    Judgement judgement = GameObject.Find("Judgement").GetComponent<Judgement>();
+                    judgement.Miss();
+                    m_Active = false;
+                }
             }
         }
-
 
         //// 縦
         //if (Input.GetAxis("Vertical") < -0.1f)

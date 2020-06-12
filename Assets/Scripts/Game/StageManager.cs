@@ -51,6 +51,9 @@ public class StageManager : MonoBehaviour
             Judgement judgement = obj.GetComponent<Judgement>();
             judgement.Initialize();
         }
+
+        MainCamera camera = GameObject.Find("Main Camera").GetComponent<MainCamera>();
+        camera.Initialize();
     }
 
     private void Stage00(ref GameObject map)

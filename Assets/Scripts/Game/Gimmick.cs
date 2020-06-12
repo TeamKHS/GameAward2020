@@ -25,7 +25,7 @@ public class Gimmick : MonoBehaviour
             if (!note.Success)
             {
                 Judgement judgement = GameObject.Find("Judgement").GetComponent<Judgement>();
-                judgement.GameOver();
+                judgement.Miss();
 
             }
         }

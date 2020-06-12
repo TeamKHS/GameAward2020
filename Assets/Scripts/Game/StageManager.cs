@@ -57,9 +57,11 @@ public class StageManager : MonoBehaviour
     {
         map = (GameObject)Resources.Load("Stage04");
 
-        Singleton<SoundPlayer>.Instance.AddResource("music", "amygdata");
+        Singleton<SoundPlayer>.Instance.AddResource("music", "taiko");
+        //Singleton<SoundPlayer>.Instance.AddResource("music", "00015_heaven-and-hell");
         Singleton<SoundPlayer>.Instance.AddResource("se", "cursor1");
-        
-        //Singleton<SoundPlayer>.Instance.Play("music");
+
+        Singleton<SoundPlayer>.Instance.SetBGM("music");
+        Singleton<SoundPlayer>.Instance.PlayBGM();
     }
 }

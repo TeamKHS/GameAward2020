@@ -21,7 +21,15 @@ public class SoundPlayer
         }
     }
 
-    public bool Play(string name)
+    public bool PlayBGM()
+    {
+        if (m_AudioSource.clip == null) return false;
+
+        m_AudioSource.Play();
+
+        return true;
+    }
+    public bool PlaySE(string name)
     {
         if (m_AudioClips.ContainsKey(name) == false)
         {
@@ -31,6 +39,23 @@ public class SoundPlayer
         m_AudioSource.PlayOneShot(m_AudioClips[name].clip);
 
         return true;
+    }
+
+    public bool SetBGM(string name)
+    {
+        if (m_AudioClips.ContainsKey(name) == false)
+        {
+            return false;
+        }
+
+        m_AudioSource.clip = m_AudioClips[name].clip;
+
+        return true;
+    }
+
+    public float GetPlayTime()
+    {
+        return m_AudioSource.time;
     }
 
     public void AddResource(string key, string name)
@@ -65,4 +90,10 @@ public class SoundPlayer
     {
         m_AudioClips.Clear();
     }
+
+    public void Release(string key)
+    {
+        m_AudioClips.Remove(key);
+    }
+
 }

@@ -181,19 +181,19 @@ public class Player : MonoBehaviour
                     // 壁
                     nextIndex -= m_Direction;
                     m_Judgement.Wall();
-                    StartMove(i, index, nextIndex, ref move);
+                    StartMove(i, index, nextIndex, ref move, false);
                     break;
 
                 case (int)Map.MapType.Hole:
                     // 穴
-                    m_Judgement.Hole(this);
-                    StartMove(i, index, nextIndex, ref move);
+                    m_Judgement.Hole();
+                    StartMove(i, index, nextIndex, ref move, true);
                     break;
 
                 case (int)Map.MapType.Goal:
                     // ゴール
                     m_Judgement.Goal();
-                    StartMove(i, index, nextIndex, ref move);
+                    StartMove(i, index, nextIndex, ref move, false);
                     break;
 
             }
@@ -236,10 +236,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void StartMove(int i, int index, int nextIndex, ref bool move)
+    private void StartMove(int i, int index, int nextIndex, ref bool move, bool miss)
     {
+        float time = 0.0f;
+
         // 次のマス目に到着する時間
-        float time = m_Map.NoteTiming.GetTiming() - Singleton<SoundPlayer>.Instance.GetPlayTime();
+        if (miss)
+        {
+            time = 1.0f;
+        }
+        else
+        {
+            time = m_Map.NoteTiming.GetTiming() - Singleton<SoundPlayer>.Instance.GetPlayTime();
+        }
 
         if (time < 0)
         {

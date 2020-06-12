@@ -62,10 +62,19 @@ public class Map : MonoBehaviour
     }
 
     // 添え字から位置を返す
-    private Vector3 OffsetPosition(Vector3 pos)
+    private Vector3 OffsetPosition(Vector3 pos, bool add = true)
     {
-        pos.x += 0.5f;
-        pos.y -= 0.5f;
+        if (add)
+        {
+            pos.x += 0.5f;
+            pos.y -= 0.5f;
+        }
+        else
+        {
+            pos.x -= 0.5f;
+            pos.y += 0.5f;
+
+        }
         return pos;
     }
     public Vector3 GetMapPosition(int index)
@@ -88,6 +97,7 @@ public class Map : MonoBehaviour
     }
     public MapType GetMapType(Player player)
     {
+       
         return (MapType)m_Map[GetMapIndex(player)];
     }
 

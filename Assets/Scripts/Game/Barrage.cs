@@ -11,7 +11,7 @@ public class Barrage : MonoBehaviour
 
     public int score = 0;       //残り連打数
     public Text score_Text;
-
+    
     
 
     public void Action()
@@ -69,7 +69,7 @@ public class Barrage : MonoBehaviour
             score_Text.enabled = false; //非表示
             Debug.Log("ダメです");
             //ゲームオーバー画面へ遷移
-
+            GameObject.Find("Judgement").GetComponent<Judgement>().Miss();
         }
 
         ////連打マスの上でタップ

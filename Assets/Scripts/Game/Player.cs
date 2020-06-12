@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private Map m_Map;
     private Judgement m_Judgement;
     private Gimmick m_Gimmick;
+  
 
     private bool m_Move;
     private int m_Direction = 0;
@@ -27,6 +28,8 @@ public class Player : MonoBehaviour
     private float m_Weight;
     private float m_Value;
     private float m_Time;
+
+   
 
     public bool IsMove
     {
@@ -71,7 +74,7 @@ public class Player : MonoBehaviour
             GameObject obj = GameObject.Find("Gimmick");
             m_Gimmick = obj.GetComponent<Gimmick>();
         }
-
+      
         m_Move = false;
         m_Weight = 0.0f;
         m_Value = 0.0f;
@@ -95,7 +98,7 @@ public class Player : MonoBehaviour
             if ((m_Weight += (m_Value * Time.deltaTime)) >= 1.0f)
             {
                 SetEndPosition(); // 移動処理
-                m_Move = false;             // 移動フラグ
+                m_Move = false;   // 移動フラグ
             }
             else
             {
@@ -105,6 +108,20 @@ public class Player : MonoBehaviour
                 SetPosition(nextPosition);  // 移動処理
             }
         }
+
+        
+
+        Animator anim = this.GetComponent<Animator>();
+        if (m_Gimmick.GetComponent<Barrage>().IsActive())
+        {
+            anim.SetBool("Fly", true);
+        }
+        else
+        {
+            anim.SetBool("Fly", false);
+        }
+
+        anim.SetBool("Move", (bool)m_Move);
     }
 
     private void SetPosition(Vector3 position)
@@ -159,8 +176,12 @@ public class Player : MonoBehaviour
                     m_Judgement.Goal();
                     StartMove(i, index, nextIndex, ref move);
                     break;
+
             }
+
         }
+
+        
     }
 
     // プレイヤーの移動停止

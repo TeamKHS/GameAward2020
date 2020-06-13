@@ -30,10 +30,7 @@ public class Player : MonoBehaviour
     private Vector3 m_EndPosition;
     private float m_Weight;
     private float m_Value;
-
-    static int cnt = 0;
-
-   
+ 
 
     public bool IsMove
     {
@@ -87,8 +84,6 @@ public class Player : MonoBehaviour
         m_Value = 0.0f;
         Animator anim = this.GetComponent<Animator>();
         anim.SetInteger("Direction", (int)m_DirectionType);
-
-        cnt = 1;
     }
 
     void Update()
@@ -98,16 +93,15 @@ public class Player : MonoBehaviour
             if (Singleton<SoundPlayer>.Instance.GetPlayTime() >= m_Time)
             {
                 PlayerMove(Player.DirectionType.Up);
+                //PlayerMove(Player.DirectionType.Right);
                 m_Once = false;
             }
         }
-
-        Debug.Log(Singleton<SoundPlayer>.Instance.GetPlayTime());
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log(cnt + "回目Timing:" + Singleton<SoundPlayer>.Instance.GetPlayTime());
-            cnt++;
-        }
+        float BPM = 160.0f;
+        //BPM = 172.0f;
+        int beatNo = (int)((Singleton<SoundPlayer>.Instance.GetPlayTime() * (BPM / 60.0f) / 2));
+        Debug.Log("BeatNo:" + beatNo.ToString());
+        Debug.Log("PlayTime:" + Singleton<SoundPlayer>.Instance.GetPlayTime().ToString());
 
         m_Gimmick.Action(m_Map.GetMapType(this), this);
 
@@ -171,6 +165,10 @@ public class Player : MonoBehaviour
 
             // 床だったらスルー
             if (map[nextIndex] == (int)Map.MapType.Floor)
+            {
+                continue;
+            }
+            if (map[nextIndex] == (int)Map.MapType.Non)
             {
                 continue;
             }

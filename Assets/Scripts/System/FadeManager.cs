@@ -33,6 +33,10 @@ public class FadeManager : MonoBehaviour
 	//色
 	public Color fadeColor = Color.black;
 
+    public bool Fading
+    {
+        get { return isFading; }
+    }
 
 	public void Awake()
 	{

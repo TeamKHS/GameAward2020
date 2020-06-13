@@ -4,8 +4,33 @@ using UnityEngine;
 
 public class Gimmick : MonoBehaviour
 {
+    private Map.MapType m_Active;
+    private Map.MapType m_OldActive;
+
+    void Start()
+    {
+        m_Active = m_OldActive = Map.MapType.Non;       
+    }
+
+
     public void Action(Map.MapType type, Player player)
     {
+        m_Active = type;
+
+        // 切り替わった
+        if (m_Active != m_OldActive)
+        {
+            Note note = this.GetComponent<Note>();
+
+            if (!note.Success)
+            {
+                Judgement judgement = GameObject.Find("Judgement").GetComponent<Judgement>();
+                judgement.Miss();
+
+            }
+        }
+
+
         switch (type)
         {
             case Map.MapType.Note:
@@ -20,6 +45,8 @@ public class Gimmick : MonoBehaviour
                 BarrageAction();
                 break;
         }
+
+        m_OldActive = m_Active;
     }
 
     private void NoteAction(Player player)

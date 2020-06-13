@@ -62,10 +62,19 @@ public class Map : MonoBehaviour
     }
 
     // 添え字から位置を返す
-    private Vector3 OffsetPosition(Vector3 pos)
+    private Vector3 OffsetPosition(Vector3 pos, bool add = true)
     {
-        pos.x += 0.5f;
-        pos.y -= 0.5f;
+        if (add)
+        {
+            pos.x += 0.5f;
+            pos.y -= 0.5f;
+        }
+        else
+        {
+            pos.x -= 0.5f;
+            pos.y += 0.5f;
+
+        }
         return pos;
     }
     public Vector3 GetMapPosition(int index)
@@ -88,8 +97,15 @@ public class Map : MonoBehaviour
     }
     public MapType GetMapType(Player player)
     {
+       
         return (MapType)m_Map[GetMapIndex(player)];
     }
+
+    public MapType GetMapType(int index)
+    {
+        return GetMapType(GetMapPosition(index));
+    }
+
 
     // 今いるタイルにどれくらい乗っているか（1.0が真ん中）
     public float GetTilePosition(GameObject obj)
@@ -133,6 +149,22 @@ public class Map : MonoBehaviour
         }
 
         return (1.0f - f);
+    }
+
+    public int GetGoalIndex()
+    {
+        int value = -1;
+
+        for (int i = 0; i < (m_MapX * m_MapY) - 1; i++)
+        {
+            if (m_Map[i] == (int)MapType.Goal)
+            {
+                value = i;
+                break;
+            }
+        }
+
+        return value;
     }
 
     public void Initialize()
@@ -192,6 +224,11 @@ public class Map : MonoBehaviour
                 m_Map[GetMapIndex(positionList[i])] = (int)MapType.Hole;
                 continue;
             }
+            if (nameList[i].StartsWith("barrage"))
+            {
+                m_Map[GetMapIndex(positionList[i])] = (int)MapType.Barrage;
+                continue;
+            }
 
             switch (nameList[i])
             {
@@ -229,7 +266,7 @@ public class Map : MonoBehaviour
                     break;
 
                 case "block_0":
-                    m_Map[GetMapIndex(positionList[i])] = (int)MapType.Arrow;
+                    m_Map[GetMapIndex(positionList[i])] = (int)MapType.Start;
                     m_StartPosition = OffsetPosition(positionList[i]);
                     break;
             }

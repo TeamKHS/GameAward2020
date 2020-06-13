@@ -30,6 +30,9 @@ public class Player : MonoBehaviour
     private Vector3 m_EndPosition;
     private float m_Weight;
     private float m_Value;
+    private bool m_Miss;
+
+    public bool Miss{ set { m_Miss = value; } }
 
     static int cnt = 0;
 
@@ -81,6 +84,7 @@ public class Player : MonoBehaviour
       
         m_Move = false;
         m_Once = true;
+        m_Miss = false;
         m_Time = m_Map.NoteTiming.GetTiming();
 
         m_Weight = 0.0f;
@@ -128,16 +132,17 @@ public class Player : MonoBehaviour
             }
         }
 
-        
-
         Animator anim = this.GetComponent<Animator>();
-        if (m_Gimmick.GetComponent<Barrage>().IsActive())
+
+        //飛ぶ
+        anim.SetBool("Fly", m_Gimmick.GetComponent<Barrage>().IsActive());
+
+        //Gameoverアニメ
+        anim.SetBool("GameOver", m_Miss);
+        if(m_Miss ==true)
         {
-            anim.SetBool("Fly", true);
-        }
-        else
-        {
-            anim.SetBool("Fly", false);
+            //this.transform.rotation = new Quaternion(this.transform.rotation.x, this.transform.rotation.y, this.transform.rotation.z + 0.1f, this.transform.rotation.w);
+            transform.Rotate(new Vector3(0, 0, 5));
         }
 
         anim.SetBool("Move", (bool)m_Move);
@@ -181,19 +186,19 @@ public class Player : MonoBehaviour
                     // 壁
                     nextIndex -= m_Direction;
                     m_Judgement.Wall();
-                    StartMove(i, index, nextIndex, ref move);
+                    StartMove(i, index, nextIndex, ref move, false);
                     break;
 
                 case (int)Map.MapType.Hole:
                     // 穴
-                    m_Judgement.Hole(this);
-                    StartMove(i, index, nextIndex, ref move);
+                    m_Judgement.Hole();
+                    StartMove(i, index, nextIndex, ref move, true);
                     break;
 
                 case (int)Map.MapType.Goal:
                     // ゴール
                     m_Judgement.Goal();
-                    StartMove(i, index, nextIndex, ref move);
+                    StartMove(i, index, nextIndex, ref move, false);
                     break;
 
             }
@@ -236,10 +241,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void StartMove(int i, int index, int nextIndex, ref bool move)
+    private void StartMove(int i, int index, int nextIndex, ref bool move, bool miss)
     {
+        float time = 0.0f;
+
         // 次のマス目に到着する時間
-        float time = m_Map.NoteTiming.GetTiming() - Singleton<SoundPlayer>.Instance.GetPlayTime();
+        if (miss)
+        {
+            time = 1.0f;
+        }
+        else
+        {
+            time = m_Map.NoteTiming.GetTiming() - Singleton<SoundPlayer>.Instance.GetPlayTime();
+        }
 
         if (time < 0)
         {

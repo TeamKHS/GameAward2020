@@ -8,20 +8,45 @@ public class Note : MonoBehaviour
     public float DrawTime = 1.0f;
     public bool DrawPos = true;
 
+    private int m_Index;
+    private int m_OldIndex;
+
+    private bool m_Success;
+
+    public bool Success
+    {
+        get { return m_Success; }
+    }
+
+
+    void Start()
+    {
+        m_Index = m_OldIndex = 0;
+        m_Success = true;
+
+    }
+
     public void Action(Player player)
     {
         Map map = GameObject.Find("StageManager").GetComponent<StageManager>().Map;
+        float tilePos = map.GetTilePosition(player);
+        m_Index = map.GetMapIndex(player);
 
-        if (map.GetTilePosition(player) >= 0.5f)
+        // ノーツマス侵入時
+        if (m_Index != m_OldIndex)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("NoteAction:Success" + map.GetTilePosition(player));
-                
-                StartCoroutine(NoteActionDrawStart());
-                Singleton<SoundPlayer>.Instance.PlaySE("se");
-            }
+            m_Success = false;
         }
+
+        if (Input.GetKey(KeyCode.Space) && !m_Success)
+        {
+            m_Success = true;
+            StartCoroutine(NoteActionDrawStart());
+            Singleton<SoundPlayer>.Instance.PlaySE("se");
+        }
+
+
+        m_OldIndex = m_Index;
     }
 
     IEnumerator NoteActionDrawStart()

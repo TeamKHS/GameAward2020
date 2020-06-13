@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Buttons : MonoBehaviour
 {
-    static bool m_Stage00 = false;
+    static bool m_Stage00 = true;
     static bool m_Stage01 = false;
     static bool m_Stage02 = false;
     static bool m_Stage03 = false;

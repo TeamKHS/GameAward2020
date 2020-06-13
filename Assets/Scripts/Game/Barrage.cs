@@ -56,6 +56,7 @@ public class Barrage : MonoBehaviour
         }
         else if (barrageNum <= 0)
         {
+            score_Text.color = new Color(255, 0, 0);
             score_Text.text = "クリア！！";
         }
 

@@ -224,6 +224,11 @@ public class Map : MonoBehaviour
                 m_Map[GetMapIndex(positionList[i])] = (int)MapType.Hole;
                 continue;
             }
+            if (nameList[i].StartsWith("barrage"))
+            {
+                m_Map[GetMapIndex(positionList[i])] = (int)MapType.Barrage;
+                continue;
+            }
 
             switch (nameList[i])
             {

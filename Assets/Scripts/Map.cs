@@ -106,7 +106,6 @@ public class Map : MonoBehaviour
         return GetMapType(GetMapPosition(index));
     }
 
-
     // 今いるタイルにどれくらい乗っているか（1.0が真ん中）
     public float GetTilePosition(GameObject obj)
     {
@@ -271,25 +270,5 @@ public class Map : MonoBehaviour
                     break;
             }
         }
-
-    
-        //// ゴールの取得
-        //{
-        //    GameObject goal = GameObject.FindGameObjectWithTag("Goal");
-
-        //    m_Map[GetMapIndex((Vector2)goal.transform.position)] = (int)MapType.Goal;
-        //}
-
-        // 壁の取得
-        {
-            GameObject[] walls = GameObject.FindGameObjectsWithTag("Wall");
-
-            foreach (GameObject i in walls)
-            {
-                // 仮。１は壁とする。
-                m_Map[GetMapIndex((Vector2)i.transform.position)] = (int)MapType.Wall ;
-            }
-        }
-
     }
 }

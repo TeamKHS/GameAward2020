@@ -9,16 +9,25 @@ public class Arrow : MonoBehaviour
     private float m_Time;
 
     private bool m_Active;
+    private bool m_Miss;
+
+    public bool Miss
+    {
+        set { m_Miss = value; }
+    }
 
     void Start()
     {
         m_Index = m_OldIndex = 0;
         m_Active = false;
         m_Time = 0.0f;
+        m_Miss = false;
     }
 
     public void Action(Player player)
     {
+        if (m_Miss) return;
+
         Map map = GameObject.Find("StageManager").GetComponent<StageManager>().Map;
 
         m_Index = map.GetMapIndex(player);

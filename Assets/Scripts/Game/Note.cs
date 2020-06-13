@@ -13,6 +13,11 @@ public class Note : MonoBehaviour
 
     private bool m_Success;
 
+    public int OldIndex
+    {
+        set { m_OldIndex = value; }
+    }
+
     public bool Success
     {
         get { return m_Success; }
@@ -23,7 +28,6 @@ public class Note : MonoBehaviour
     {
         m_Index = m_OldIndex = 0;
         m_Success = true;
-
     }
 
     public void Action(Player player)
@@ -44,7 +48,6 @@ public class Note : MonoBehaviour
             StartCoroutine(NoteActionDrawStart());
             Singleton<SoundPlayer>.Instance.PlaySE("se");
         }
-
 
         m_OldIndex = m_Index;
     }
@@ -67,7 +70,5 @@ public class Note : MonoBehaviour
         yield return new WaitForSeconds(DrawTime);
 
         NoteActionImage.SetActive(false);
-
     }
-
 }

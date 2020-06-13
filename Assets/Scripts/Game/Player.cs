@@ -30,6 +30,9 @@ public class Player : MonoBehaviour
     private Vector3 m_EndPosition;
     private float m_Weight;
     private float m_Value;
+    private bool m_Miss;
+
+    public bool Miss{ set { m_Miss = value; } }
 
     static int cnt = 0;
 
@@ -81,6 +84,7 @@ public class Player : MonoBehaviour
       
         m_Move = false;
         m_Once = true;
+        m_Miss = false;
         m_Time = m_Map.NoteTiming.GetTiming();
 
         m_Weight = 0.0f;
@@ -128,16 +132,17 @@ public class Player : MonoBehaviour
             }
         }
 
-        
-
         Animator anim = this.GetComponent<Animator>();
-        if (m_Gimmick.GetComponent<Barrage>().IsActive())
+
+        //飛ぶ
+        anim.SetBool("Fly", m_Gimmick.GetComponent<Barrage>().IsActive());
+
+        //Gameoverアニメ
+        anim.SetBool("GameOver", m_Miss);
+        if(m_Miss ==true)
         {
-            anim.SetBool("Fly", true);
-        }
-        else
-        {
-            anim.SetBool("Fly", false);
+            //this.transform.rotation = new Quaternion(this.transform.rotation.x, this.transform.rotation.y, this.transform.rotation.z + 0.1f, this.transform.rotation.w);
+            transform.Rotate(new Vector3(0, 0, 5));
         }
 
         anim.SetBool("Move", (bool)m_Move);

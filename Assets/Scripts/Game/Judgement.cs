@@ -17,6 +17,7 @@ public class Judgement : MonoBehaviour
     private Status m_Status;
     private float m_Time;
     private bool m_End;
+  
 
     // Start is called before the first frame update
     public void Initialize()
@@ -24,6 +25,7 @@ public class Judgement : MonoBehaviour
         m_Status = Status.Non;
         m_Time = 0.0f;
         m_End = false;
+       
     }
 
     // Update is called once per frame
@@ -92,7 +94,7 @@ public class Judgement : MonoBehaviour
         player.PlayerStop();
 
         Debug.Log("死");
-
+       
         m_Time += Time.deltaTime;
 
         if (3.0f <= m_Time)
@@ -129,7 +131,10 @@ public class Judgement : MonoBehaviour
     public void Miss()
     {
         m_Status = Status.Miss;
+        GameObject.Find("Player").GetComponent<Player>().Miss = true;
     }
+
+
 
     //public void GameOver()
     //{

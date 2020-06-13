@@ -10,6 +10,7 @@ public class Barrage : MonoBehaviour
     bool old = false;
 
     public int score;       //残り連打数
+    int barrageNum;
     public Text score_Text;
     
     
@@ -29,6 +30,7 @@ public class Barrage : MonoBehaviour
         //GameObject canvas = GameObject.Find("Canvas").transform.parent.gameObject;
 
         score_Text.enabled = false;     //非表示
+        barrageNum = score;
     }
 
     void Update()
@@ -45,26 +47,26 @@ public class Barrage : MonoBehaviour
         //連打したときの処理
         if (active && old)
         {
-            score_Text.text = "あと" + score + "回！";
+            score_Text.text = "あと" + barrageNum + "回！";
         }
-        if (active && old && Input.GetKeyDown(KeyCode.Space) && score > 0)
+        if (active && old && Input.GetKeyDown(KeyCode.Space) && barrageNum > 0)
         {
-            score -= 1;
+            barrageNum -= 1;
             score_Text.text = "あと" + score.ToString() + "回！";
         }
-        else if (score <= 0)
+        else if (barrageNum <= 0)
         {
             score_Text.text = "クリア！！";
         }
 
         //連打の分岐処理
-        if (!active && old && score <= 0)
+        if (!active && old && barrageNum <= 0)
         {
             score_Text.enabled = false; //非表示
             Debug.Log("連打マス脱出");
-
+            barrageNum = score;
         }
-        else if (!active && old && score > 0)
+        else if (!active && old && barrageNum > 0)
         {
             score_Text.enabled = false; //非表示
             Debug.Log("ダメです");

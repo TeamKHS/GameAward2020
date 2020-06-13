@@ -136,8 +136,12 @@ public class Judgement : MonoBehaviour
         m_End = true;
     }
 
-    public void Wall()
+    public void Wall(int i)
     {
+        if (i == 1)
+        {
+            Miss();
+        }
     }
 
     public void Hole()

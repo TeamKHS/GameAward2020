@@ -175,7 +175,7 @@ public class Player : MonoBehaviour
                 case (int)Map.MapType.Wall:
                     // 壁
                     nextIndex -= m_Direction;
-                    m_Judgement.Wall();
+                    m_Judgement.Wall(i);
                     StartMove(i, index, nextIndex, ref move, false);
                     break;
 
@@ -232,11 +232,6 @@ public class Player : MonoBehaviour
     {
         float time = 0.0f;
         float store = 0.0f;
-
-        if (i == 1)
-        {
-            m_Judgement.Miss();
-        }
 
         // 次のマス目に到着する時間
         if (miss)

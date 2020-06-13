@@ -231,7 +231,7 @@ public class Map : MonoBehaviour
 
             switch (nameList[i])
             {
-                case "block_147":
+                case "Wall":
                     m_Map[GetMapIndex(positionList[i])] = (int)MapType.Wall;
                     break;
 
@@ -239,32 +239,27 @@ public class Map : MonoBehaviour
                     m_Map[GetMapIndex(positionList[i])] = (int)MapType.Hole;
                     break;
 
-                case "block_43":
+                case "Floor":
                     m_Map[GetMapIndex(positionList[i])] = (int)MapType.Floor;
                     break;
 
-                case "block_459":
+                case "Goal":
                     m_Map[GetMapIndex(positionList[i])] = (int)MapType.Goal;
                     break;
 
-                case "block_211":
+                case "Arrow":
                     m_Map[GetMapIndex(positionList[i])] = (int)MapType.Arrow;
                     break;
 
-                case "block_772":
+                case "Barrage":
                     m_Map[GetMapIndex(positionList[i])] = (int)MapType.Barrage;
                     break;
 
-                case "block_315":
+                case "Note":
                     m_Map[GetMapIndex(positionList[i])] = (int)MapType.Note;
                     break;
 
-                case "Konishi":
-                    m_Map[GetMapIndex(positionList[i])] = (int)MapType.Arrow;
-                    m_StartPosition = OffsetPosition(positionList[i]);
-                    break;
-
-                case "block_0":
+                case "Start":
                     m_Map[GetMapIndex(positionList[i])] = (int)MapType.Start;
                     m_StartPosition = OffsetPosition(positionList[i]);
                     break;

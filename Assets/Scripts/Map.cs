@@ -101,6 +101,12 @@ public class Map : MonoBehaviour
         return (MapType)m_Map[GetMapIndex(player)];
     }
 
+    public MapType GetMapType(int index)
+    {
+        return GetMapType(GetMapPosition(index));
+    }
+
+
     // 今いるタイルにどれくらい乗っているか（1.0が真ん中）
     public float GetTilePosition(GameObject obj)
     {
@@ -143,6 +149,22 @@ public class Map : MonoBehaviour
         }
 
         return (1.0f - f);
+    }
+
+    public int GetGoalIndex()
+    {
+        int value = -1;
+
+        for (int i = 0; i < (m_MapX * m_MapY) - 1; i++)
+        {
+            if (m_Map[i] == (int)MapType.Goal)
+            {
+                value = i;
+                break;
+            }
+        }
+
+        return value;
     }
 
     public void Initialize()

@@ -17,6 +17,10 @@ public class NoteTiming : MonoBehaviour
             case 0:
                 Stage01();
                 break;
+
+            case 1:
+                Stage02();
+                break;
         }
     }
 
@@ -98,4 +102,49 @@ public class NoteTiming : MonoBehaviour
         m_Timing.Add(offset + 6.8f + Timing(4, 4, hatibu, 43, 4));
         m_Timing.Add(-1.0f);
     }
+
+
+    private float Timing(int section, int beat)
+    {
+        float timing = 0.0f;
+        float BPM = 0.0f;
+        float value = 0.0f;
+
+        // 60.0f / BPM : 四分音符
+
+        //if (section <= 16)
+        //{
+            BPM = 160.0f;
+           // BPM = 172.0f;
+            value = BPM / 60.0f / 16;
+
+            timing += value * 8 * section;
+            timing += value * beat;
+        //}
+        //else
+        //{
+        //    BPM = 160.0f;
+        //    value = 60.0f / BPM / 2.0f;
+        //    timing += value * 8 * 16;
+        //    section -= 16;
+
+        //    BPM = 172.0f;
+        //    value = 60.0f / BPM / 2.0f;
+
+        //    timing += value * 8 * section;
+        //    timing += value * beat;
+        //}
+
+        return timing;
+    }
+    private void Stage02()
+    {
+        float offset = 0.0f;
+
+        //        m_Timing.Add(offset + Timing(9, 4));
+        m_Timing.Add(offset + Timing(18, 0));
+        m_Timing.Add(offset + Timing(100, 0));
+    }
 }
+
+

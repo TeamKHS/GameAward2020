@@ -21,6 +21,7 @@ public class StageManager : MonoBehaviour
     void Start()
     {
         // プレハブからGameObject型を取得    
+        Singleton<SoundPlayer>.Instance.Release();
         GameObject map = null;
 
         switch (m_StageIndex)
@@ -30,6 +31,7 @@ public class StageManager : MonoBehaviour
                 break;
 
             case 1:
+                Stage01(ref map);
                 break;
         }
 
@@ -54,17 +56,31 @@ public class StageManager : MonoBehaviour
 
         MainCamera camera = GameObject.Find("Main Camera").GetComponent<MainCamera>();
         camera.Initialize();
+        camera.Move = false;
+
+
     }
 
     private void Stage00(ref GameObject map)
     {
         map = (GameObject)Resources.Load("Stage04");
 
-        Singleton<SoundPlayer>.Instance.AddResource("music", "taiko");
+        Singleton<SoundPlayer>.Instance.AddResource("music", "kobayashi");
         //Singleton<SoundPlayer>.Instance.AddResource("music", "00015_heaven-and-hell");
         Singleton<SoundPlayer>.Instance.AddResource("se", "cursor1");
 
         Singleton<SoundPlayer>.Instance.SetBGM("music");
-        Singleton<SoundPlayer>.Instance.PlayBGM();
+ //       Singleton<SoundPlayer>.Instance.PlayBGM();
+    }
+
+    private void Stage01(ref GameObject map)
+    {
+        map = (GameObject)Resources.Load("Stage00");
+
+        Singleton<SoundPlayer>.Instance.AddResource("music", "00015_heaven-and-hell");
+        //Singleton<SoundPlayer>.Instance.AddResource("music", "00015_heaven-and-hell");
+        Singleton<SoundPlayer>.Instance.AddResource("se", "cursor1");
+
+        Singleton<SoundPlayer>.Instance.SetBGM("music");
     }
 }

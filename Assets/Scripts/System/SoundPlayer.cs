@@ -58,6 +58,11 @@ public class SoundPlayer
         return m_AudioSource.time;
     }
 
+    public bool IsPlayingBGM()
+    {
+        return m_AudioSource.isPlaying;
+    }
+
     public void AddResource(string key, string name)
     {
         m_AudioClips.Add(key, new AudioClipInfo(name, key));

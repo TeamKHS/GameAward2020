@@ -74,7 +74,7 @@ public class NoteTiming : MonoBehaviour
         float BPM = 159.6f;
         float hatibu = 60.0f / BPM / 2.0f;
         //float offset = 4.5f;
-        float offset = 0.0f;
+        float offset = -1.5f;
 
         m_Timing.Add(offset + 6.8f);
         m_Timing.Add(offset + 6.8f + Timing(4, 0, hatibu, 9, 4));

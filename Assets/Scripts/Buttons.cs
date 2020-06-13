@@ -7,6 +7,7 @@ public class Buttons : MonoBehaviour
     public void NewGame()
     {
         StageManager.StageIndex = 0;
+        StageManager.LookMap = true;
         FadeManager.Instance.LoadScene("Game", 2.0f);
     }
 
@@ -24,12 +25,14 @@ public class Buttons : MonoBehaviour
     public void ToStage00()
     {
         StageManager.StageIndex = 0;
+        StageManager.LookMap = true;
         FadeManager.Instance.LoadScene("Game", 2.0f);
     }
 
     public void ToStage01()
     {
         StageManager.StageIndex = 1;
+        StageManager.LookMap = true;
         FadeManager.Instance.LoadScene("Game", 2.0f);
 
     }
@@ -54,6 +57,7 @@ public class Buttons : MonoBehaviour
 
     public void ReStart()
     {
+        StageManager.LookMap = false;
         FadeManager.Instance.LoadScene("Game", 2.0f);
     }
 

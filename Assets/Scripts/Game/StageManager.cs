@@ -5,10 +5,15 @@ using UnityEngine;
 public class StageManager : MonoBehaviour
 {
     private static int m_StageIndex = 0;
+    private static bool m_LookMap = true;
     public static int StageIndex
     {
         get { return m_StageIndex; }
         set { m_StageIndex = value; }
+    }
+    public static bool LookMap
+    {
+        set { m_LookMap = value; }
     }
 
     private Map m_Map;
@@ -56,16 +61,14 @@ public class StageManager : MonoBehaviour
 
         MainCamera camera = GameObject.Find("Main Camera").GetComponent<MainCamera>();
         camera.Initialize();
-        camera.Move = false;
-
-
+        camera.Move = m_LookMap;
     }
 
     private void Stage00(ref GameObject map)
     {
         map = (GameObject)Resources.Load("Stage04");
 
-        Singleton<SoundPlayer>.Instance.AddResource("music", "kobayashi");
+        Singleton<SoundPlayer>.Instance.AddResource("music", "kobayashi2");
         //Singleton<SoundPlayer>.Instance.AddResource("music", "00015_heaven-and-hell");
         Singleton<SoundPlayer>.Instance.AddResource("se", "cursor1");
 

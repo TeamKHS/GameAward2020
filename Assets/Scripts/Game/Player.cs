@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
         anim.SetBool("GameOver", m_Miss);
         if(m_Miss ==true)
         {
-            transform.Rotate(new Vector3(0, 0, 5));
+            transform.Rotate(new Vector3(0, 0, 150.0f * Time.deltaTime));
         }
 
         anim.SetBool("Move", (bool)m_Move);
@@ -236,7 +236,7 @@ public class Player : MonoBehaviour
         // 次のマス目に到着する時間
         if (miss)
         {
-            time = i * 0.5f;
+            time = i * 0.3f;
             m_Gimmick.GetComponent<Arrow>().Miss = true;
         }
         else

@@ -199,7 +199,7 @@ public class Player : MonoBehaviour
                     // ゴール
                     m_Judgement.Goal();
                     StartMove(i, index, nextIndex, ref move, false);
-                    break;
+                    continue;
 
             }
 
@@ -244,6 +244,8 @@ public class Player : MonoBehaviour
     private void StartMove(int i, int index, int nextIndex, ref bool move, bool miss)
     {
         float time = 0.0f;
+        float store = 0.0f;
+
 
         // 次のマス目に到着する時間
         if (miss)
@@ -251,11 +253,18 @@ public class Player : MonoBehaviour
             time = 1.0f;
         }
         else
-        {
-            time = m_Map.NoteTiming.GetTiming() - Singleton<SoundPlayer>.Instance.GetPlayTime();
+        { 
+            store = m_Map.NoteTiming.GetTiming();
+            time = store - Singleton<SoundPlayer>.Instance.GetPlayTime();
         }
 
         if (time < 0)
+        {
+            Debug.Log("よう！それってバグかい？うちはもう動画提出したよ");
+        }
+
+
+        if (store >= 60.0f)
         {
             Debug.Log("よう！それってバグかい？うちはもう動画提出したよ");
         }

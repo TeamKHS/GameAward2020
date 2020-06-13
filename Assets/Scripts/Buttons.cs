@@ -25,7 +25,7 @@ public class Buttons : MonoBehaviour
     public void ToStage00()
     {
         StageManager.StageIndex = 0;
-        StageManager.LookMap = true;
+        StageManager.LookMap = false;
         FadeManager.Instance.LoadScene("Game", 2.0f);
     }
 

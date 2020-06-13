@@ -9,7 +9,7 @@ public class Barrage : MonoBehaviour
     bool active = false;
     bool old = false;
 
-    public int score = 0;       //残り連打数
+    public int score;       //残り連打数
     public Text score_Text;
     
     
@@ -37,7 +37,7 @@ public class Barrage : MonoBehaviour
         if (active && !old)
         {
             Debug.Log("連打マス突入");
-            score = 2;
+            
             score_Text.enabled = true;  //表示
 
         }

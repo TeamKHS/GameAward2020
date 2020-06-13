@@ -34,9 +34,6 @@ public class Player : MonoBehaviour
 
     public bool Miss{ set { m_Miss = value; } }
 
-    static int cnt = 0;
-
-   
 
     public bool IsMove
     {
@@ -91,12 +88,11 @@ public class Player : MonoBehaviour
         m_Value = 0.0f;
         Animator anim = this.GetComponent<Animator>();
         anim.SetInteger("Direction", (int)m_DirectionType);
-
-        cnt = 1;
     }
 
     void Update()
     {
+        // 勝手に動き出す処理
         if (m_Once)
         {
             if (Singleton<SoundPlayer>.Instance.GetPlayTime() >= m_Time)
@@ -107,11 +103,6 @@ public class Player : MonoBehaviour
         }
 
         Debug.Log(Singleton<SoundPlayer>.Instance.GetPlayTime());
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log(cnt + "回目Timing:" + Singleton<SoundPlayer>.Instance.GetPlayTime());
-            cnt++;
-        }
 
         m_Gimmick.Action(m_Map.GetMapType(this), this);
 
@@ -141,7 +132,6 @@ public class Player : MonoBehaviour
         anim.SetBool("GameOver", m_Miss);
         if(m_Miss ==true)
         {
-            //this.transform.rotation = new Quaternion(this.transform.rotation.x, this.transform.rotation.y, this.transform.rotation.z + 0.1f, this.transform.rotation.w);
             transform.Rotate(new Vector3(0, 0, 5));
         }
 
@@ -185,7 +175,7 @@ public class Player : MonoBehaviour
                 case (int)Map.MapType.Wall:
                     // 壁
                     nextIndex -= m_Direction;
-                    m_Judgement.Wall();
+                    m_Judgement.Wall(i);
                     StartMove(i, index, nextIndex, ref move, false);
                     break;
 
@@ -199,20 +189,17 @@ public class Player : MonoBehaviour
                     // ゴール
                     m_Judgement.Goal();
                     StartMove(i, index, nextIndex, ref move, false);
-                    break;
+                    continue;
 
             }
 
-        }
-
-        
+        }       
     }
 
     // プレイヤーの移動停止
     public void PlayerStop()
     {
         m_Move = false;
-       // m_StartPosition = m_EndPosition = this.transform.position;
     }
 
     private void SetDirection(DirectionType dir)
@@ -244,15 +231,18 @@ public class Player : MonoBehaviour
     private void StartMove(int i, int index, int nextIndex, ref bool move, bool miss)
     {
         float time = 0.0f;
+        float store = 0.0f;
 
         // 次のマス目に到着する時間
         if (miss)
         {
-            time = 1.0f;
+            time = i * 0.5f;
+            m_Gimmick.GetComponent<Arrow>().Miss = true;
         }
         else
-        {
-            time = m_Map.NoteTiming.GetTiming() - Singleton<SoundPlayer>.Instance.GetPlayTime();
+        { 
+            store = m_Map.NoteTiming.GetTiming();
+            time = store - Singleton<SoundPlayer>.Instance.GetPlayTime();
         }
 
         if (time < 0)
@@ -270,3 +260,4 @@ public class Player : MonoBehaviour
         move = false;
     }
 }
+

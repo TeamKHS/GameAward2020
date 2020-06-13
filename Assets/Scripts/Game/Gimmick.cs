@@ -21,7 +21,7 @@ public class Gimmick : MonoBehaviour
         if (m_Active != m_OldActive)
         {
             Note note = this.GetComponent<Note>();
-
+            note.OldIndex = 0;
             if (!note.Success)
             {
                 Judgement judgement = GameObject.Find("Judgement").GetComponent<Judgement>();

@@ -10,6 +10,7 @@ public class Judgement : MonoBehaviour
         Hole,
         Goal,
         Miss,
+        GameClear,
         GameOver,
 
     }
@@ -53,6 +54,10 @@ public class Judgement : MonoBehaviour
                 UpdateMiss();
                     break;
 
+            case Status.GameClear:
+                UpdateGameClear();
+                break;
+
             case Status.GameOver:
                 UpdateGameOver();
                 break;
@@ -65,6 +70,7 @@ public class Judgement : MonoBehaviour
         if (!player.IsMove)
         {
             Debug.Log("堕ちたな");
+            GameObject.Find("Player").GetComponent<Player>().Miss = true;
 
             m_Time += Time.deltaTime;
 
@@ -79,13 +85,29 @@ public class Judgement : MonoBehaviour
     private void UpdateGoal()
     {
         Player player = GameObject.Find("Player").GetComponent<Player>();
-        Map map = GameObject.Find("StageManager").GetComponent<StageManager>().Map;
 
         if (!player.IsMove)
         {
             Debug.Log("ゴール");
-            m_Status = Status.Non;
+
+            m_Time += Time.deltaTime;
+
+            if (3.0f <= m_Time)
+            {
+                m_Status = Status.GameClear;
+            }
         }
+    }
+
+    private void UpdateGameClear()
+    {
+        FadeManager.Instance.LoadScene("Stageclear", 2.0f);
+        MainCamera camera = GameObject.Find("Main Camera").GetComponent<MainCamera>();
+        camera.Active = false;
+        Singleton<SoundPlayer>.Instance.Release();
+
+        m_Status = Status.Non;
+        m_End = true;
     }
 
     private void UpdateMiss()
@@ -114,8 +136,12 @@ public class Judgement : MonoBehaviour
         m_End = true;
     }
 
-    public void Wall()
+    public void Wall(int i)
     {
+        if (i == 1)
+        {
+            Miss();
+        }
     }
 
     public void Hole()
@@ -133,11 +159,4 @@ public class Judgement : MonoBehaviour
         m_Status = Status.Miss;
         GameObject.Find("Player").GetComponent<Player>().Miss = true;
     }
-
-
-
-    //public void GameOver()
-    //{
-    //    m_Status = Status.GameOver;
-    //}
 }

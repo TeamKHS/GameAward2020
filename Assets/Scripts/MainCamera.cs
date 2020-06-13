@@ -10,6 +10,7 @@ public class MainCamera : MonoBehaviour
     private Map map = null;
     private float CellLength = 0;
 
+    public float LookMapSpeed = 10.0f;
     private bool m_Active = false;
     private bool m_Move = false;
     private bool m_Start = false;
@@ -53,6 +54,7 @@ public class MainCamera : MonoBehaviour
         {
             return;
         }
+        Vector3 CameraPos = Vector3.zero;
 
         // 初回カメラ移動
         if (m_Move)
@@ -63,20 +65,16 @@ public class MainCamera : MonoBehaviour
             {
                 m_Index = map.GetGoalIndex();
 
-                Vector3 CameraPos = map.GetMapPosition(m_Index);
+                CameraPos = map.GetMapPosition(m_Index);
                 CameraPos.z = -10.0f;
 
                 if (RPGCamera)
                 {
-                    Vector2 min = Camera.main.ViewportToWorldPoint(Vector2.zero);
-                    Vector2 max = Camera.main.ViewportToWorldPoint(Vector2.one);
-
-                    CameraPos.x = Mathf.Clamp(CameraPos.x, (max.x - min.x) / 2, map.m_MapX * CellLength - (max.x - min.x) / 2);
-                    CameraPos.y = Mathf.Clamp(CameraPos.y, -map.m_MapY * CellLength + (max.y - min.y) / 2, -(max.y - min.y) / 2);
+                    CameraPos = RPG(CameraPos);
                 }
-
-                m_StartPosition = m_EndPosition = transform.position = CameraPos;
+                m_StartPosition = m_EndPosition = CameraPos;
                 m_OldIndex = m_Index;
+                SetCameraPosition(CameraPos);
 
                 return;
             }
@@ -89,152 +87,55 @@ public class MainCamera : MonoBehaviour
 
             if (!m_Lerp)
             {
-                bool move = true;
-                bool right, left, up, down;
-                right = left = up = down = true;
+                bool move, right, left, up, down;
+                move = right = left = up = down = true;
 
                 for (int i = 1; move; i++)
                 {
-                    // 右方向検索
                     if (right)
-                    {
-                        int index = GetMapType(m_Index, 1, i);
-
-                        if (map.GetMapType(index) == Map.MapType.Hole) right = false;
-                        if (map.GetMapType(index) == Map.MapType.Wall) right = false;
-                        if (map.GetMapType(index) == Map.MapType.Arrow || map.GetMapType(index) == Map.MapType.Start)
-                        {
-                            if (m_OldIndex == index)
-                            {
-                                right = false;
-                            }
-                            else
-                            {
-                                StartMove(index, i, ref move);
-
-                                if (map.GetMapType(index) == Map.MapType.Start)
-                                {
-                                    m_Start = true;
-                                }
-                                break;
-                            }
-                        }
-                    }
-
+                        if (Search(ref right, 1, i, ref move))
+                            break;
                     if (left)
-                    {
-                        int index = GetMapType(m_Index, -1, i);
-
-                        if (map.GetMapType(index) == Map.MapType.Hole) left = false;
-                        if (map.GetMapType(index) == Map.MapType.Wall) left = false;
-                        if (map.GetMapType(index) == Map.MapType.Arrow || map.GetMapType(index) == Map.MapType.Start)
-                        {
-                            if (m_OldIndex == index)
-                            {
-                                left = false;
-                            }
-                            else
-                            {
-                                StartMove(index, i, ref move);
-
-
-                                if (map.GetMapType(index) == Map.MapType.Start)
-                                {
-                                    m_Start = true;
-                                }
-                                break;
-                            }
-                        }
-                    }
-
+                        if (Search(ref left, -1, i, ref move))
+                            break;
                     if (up)
-                    {
-                        int index = GetMapType(m_Index, -map.m_MapX, i);
-
-                        if (map.GetMapType(index) == Map.MapType.Hole) up = false;
-                        if (map.GetMapType(index) == Map.MapType.Wall) up = false;
-                        if (map.GetMapType(index) == Map.MapType.Arrow || map.GetMapType(index) == Map.MapType.Start)
-                        {
-                            if (m_OldIndex == index)
-                            {
-                                up = false;
-                            }
-                            else
-                            {
-                                StartMove(index, i, ref move);
-
-                                if (map.GetMapType(index) == Map.MapType.Start)
-                                {
-                                    m_Start = true;
-                                }
-                                break;
-                            }
-                        }
-                    }
-
+                        if (Search(ref up, -map.m_MapX, i, ref move))
+                            break;
                     if (down)
-                    {
-                        int index = GetMapType(m_Index, map.m_MapX, i);
-
-                        if (map.GetMapType(index) == Map.MapType.Hole) down = false;
-                        if (map.GetMapType(index) == Map.MapType.Wall) down = false;
-                        if (map.GetMapType(index) == Map.MapType.Arrow || map.GetMapType(index) == Map.MapType.Start)
-                        {
-                            if (m_OldIndex == index)
-                            { 
-                                down = false;
-                            }
-                            else
-                            {
-                                StartMove(index, i, ref move);
-
-                                if (map.GetMapType(index) == Map.MapType.Start)
-                                {
-                                    m_Start = true;
-                                }
-                                break;
-                            }
-                        }
-                    }
+                        if (Search(ref down, map.m_MapX, i, ref move))
+                            break;
                 }
             }
-            
+
+            if ((m_Weight += (m_Value * Time.deltaTime * LookMapSpeed)) >= 1.0f)
             {
-                Vector3 CameraPos;
+                CameraPos = m_EndPosition;
+                CameraPos.z = -10.0f;
 
-                if ((m_Weight += (m_Value * Time.deltaTime * 10.0f)) >= 1.0f)
+                m_Lerp = false;   // 移動フラグ
+
+                if (m_Start)
                 {
-                    CameraPos = m_EndPosition;
-                    CameraPos.z = -10.0f;
-
-                    m_Lerp = false;   // 移動フラグ
-
-                    if (m_Start)
-                    {
-                        m_Move = false;
-                        Singleton<SoundPlayer>.Instance.PlayBGM();
-                    }
+                    m_Move = false;
+                    Singleton<SoundPlayer>.Instance.PlayBGM();
                 }
-                else
-                {
-                    // 線形補間
-                    CameraPos = m_StartPosition * (1.0f - m_Weight) + m_EndPosition * m_Weight;
-                    CameraPos.z = -10.0f;
-                }
-                if (RPGCamera)
-                {
-                    Vector2 min = Camera.main.ViewportToWorldPoint(Vector2.zero);
-                    Vector2 max = Camera.main.ViewportToWorldPoint(Vector2.one);
-
-                    CameraPos.x = Mathf.Clamp(CameraPos.x, (max.x - min.x) / 2, map.m_MapX * CellLength - (max.x - min.x) / 2);
-                    CameraPos.y = Mathf.Clamp(CameraPos.y, -map.m_MapY * CellLength + (max.y - min.y) / 2, -(max.y - min.y) / 2);
-                }
-
-                transform.position = CameraPos;
             }
+            else
+            {
+                // 線形補間
+                CameraPos = m_StartPosition * (1.0f - m_Weight) + m_EndPosition * m_Weight;
+                CameraPos.z = -10.0f;
+            }
+            if (RPGCamera)
+            {
+                CameraPos = RPG(CameraPos);
+            }
+
+            SetCameraPosition(CameraPos);
         }
         else
         {
+            // 音無かったら再生開始
             if (!Singleton<SoundPlayer>.Instance.IsPlayingBGM())
             {
                 if (!FadeManager.Instance.Fading)
@@ -258,27 +159,43 @@ public class MainCamera : MonoBehaviour
                 CellLength = Stage.GetComponent<Grid>().cellSize.x;
             }
 
-            Vector3 CameraPos = Player.transform.position;
-
+            CameraPos = Player.transform.position;
             CameraPos.z = -10.0f;
 
             if (RPGCamera)
             {
-                Vector2 min = Camera.main.ViewportToWorldPoint(Vector2.zero);
-                Vector2 max = Camera.main.ViewportToWorldPoint(Vector2.one);
-
-                CameraPos.x = Mathf.Clamp(CameraPos.x, (max.x - min.x) / 2, map.m_MapX * CellLength - (max.x - min.x) / 2);
-                CameraPos.y = Mathf.Clamp(CameraPos.y, -map.m_MapY * CellLength + (max.y - min.y) / 2, -(max.y - min.y) / 2);
+                CameraPos = RPG(CameraPos);
             }
 
-            transform.position = CameraPos;
-
+            SetCameraPosition(CameraPos);
         }
     }
 
-    private int GetMapType(int index, int dir, int i)
+    bool Search(ref bool dirFlag, int dir, int i, ref bool move)
     {
-        return index + i * dir;
+        int index = m_Index + i * dir;
+
+        if (map.GetMapType(index) == Map.MapType.Hole) dirFlag = false;
+        if (map.GetMapType(index) == Map.MapType.Wall) dirFlag = false;
+        if (map.GetMapType(index) == Map.MapType.Arrow || map.GetMapType(index) == Map.MapType.Start)
+        {
+            if (m_OldIndex == index)
+            {
+                dirFlag = false;
+                return false;
+            }
+            else
+            {
+                StartMove(index, i, ref move);
+
+                if (map.GetMapType(index) == Map.MapType.Start)
+                {
+                    m_Start = true;
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
     private void StartMove(int index, int i, ref bool move)
@@ -293,5 +210,21 @@ public class MainCamera : MonoBehaviour
 
         m_OldIndex = m_Index;
         m_Index = index;
+    }
+
+    private Vector3 RPG(Vector3 pos)
+    {
+        Vector2 min = Camera.main.ViewportToWorldPoint(Vector2.zero);
+        Vector2 max = Camera.main.ViewportToWorldPoint(Vector2.one);
+
+        pos.x = Mathf.Clamp(pos.x, (max.x - min.x) / 2, map.m_MapX * CellLength - (max.x - min.x) / 2);
+        pos.y = Mathf.Clamp(pos.y, -map.m_MapY * CellLength + (max.y - min.y) / 2, -(max.y - min.y) / 2);
+
+        return pos;
+    }
+
+    private void SetCameraPosition(Vector3 position)
+    {
+        transform.position = position;
     }
 }

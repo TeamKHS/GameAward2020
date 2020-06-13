@@ -6,6 +6,8 @@ public class StageManager : MonoBehaviour
 {
     private static int m_StageIndex = 0;
     private static bool m_LookMap = true;
+    private Map m_Map;
+
     public static int StageIndex
     {
         get { return m_StageIndex; }
@@ -15,8 +17,6 @@ public class StageManager : MonoBehaviour
     {
         set { m_LookMap = value; }
     }
-
-    private Map m_Map;
     public Map Map
     {
         get { return m_Map; }
@@ -25,8 +25,10 @@ public class StageManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // プレハブからGameObject型を取得    
+        // 前回の音源の削除
         Singleton<SoundPlayer>.Instance.Release();
+
+        // プレハブからGameObject型を取得    
         GameObject map = null;
 
         switch (m_StageIndex)
@@ -36,7 +38,15 @@ public class StageManager : MonoBehaviour
                 break;
 
             case 1:
-                Stage01(ref map);
+                Stage00(ref map);
+                break;
+
+            case 2:
+                Stage00(ref map);
+                break;
+
+            case 3:
+                Stage00(ref map);
                 break;
         }
 
@@ -54,14 +64,15 @@ public class StageManager : MonoBehaviour
         }
 
         {
-            GameObject obj = GameObject.Find("Judgement");
-            Judgement judgement = obj.GetComponent<Judgement>();
+            Judgement judgement = GameObject.Find("Judgement").GetComponent<Judgement>();
             judgement.Initialize();
         }
 
-        MainCamera camera = GameObject.Find("Main Camera").GetComponent<MainCamera>();
-        camera.Initialize();
-        camera.Move = m_LookMap;
+        {
+            MainCamera camera = GameObject.Find("Main Camera").GetComponent<MainCamera>();
+            camera.Initialize();
+            camera.Move = m_LookMap;
+        }
     }
 
     private void Stage00(ref GameObject map)
@@ -69,19 +80,7 @@ public class StageManager : MonoBehaviour
         map = (GameObject)Resources.Load("Stage04");
 
         Singleton<SoundPlayer>.Instance.AddResource("music", "kobayashi2");
-        //Singleton<SoundPlayer>.Instance.AddResource("music", "00015_heaven-and-hell");
-        Singleton<SoundPlayer>.Instance.AddResource("se", "cursor1");
-
-        Singleton<SoundPlayer>.Instance.SetBGM("music");
- //       Singleton<SoundPlayer>.Instance.PlayBGM();
-    }
-
-    private void Stage01(ref GameObject map)
-    {
-        map = (GameObject)Resources.Load("Stage00");
-
-        Singleton<SoundPlayer>.Instance.AddResource("music", "00015_heaven-and-hell");
-        //Singleton<SoundPlayer>.Instance.AddResource("music", "00015_heaven-and-hell");
+//        Singleton<SoundPlayer>.Instance.AddResource("music", "taiko");
         Singleton<SoundPlayer>.Instance.AddResource("se", "cursor1");
 
         Singleton<SoundPlayer>.Instance.SetBGM("music");

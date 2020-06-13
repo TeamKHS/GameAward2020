@@ -233,6 +233,10 @@ public class Player : MonoBehaviour
         float time = 0.0f;
         float store = 0.0f;
 
+        if (i == 1)
+        {
+            m_Judgement.Miss();
+        }
 
         // 次のマス目に到着する時間
         if (miss)

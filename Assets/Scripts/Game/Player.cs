@@ -159,6 +159,8 @@ public class Player : MonoBehaviour
         // オレの位置
         int index = m_Map.GetMapIndex(this);
 
+        Singleton<SoundPlayer>.Instance.PlaySE("se");
+
         for (int i = 1; move; i++)
         {
             m_Move = true;          // 移動フラグ

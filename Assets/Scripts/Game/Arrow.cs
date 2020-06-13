@@ -38,6 +38,7 @@ public class Arrow : MonoBehaviour
             m_Active = true;
             m_Time = 0.0f;
         }
+        m_OldIndex = m_Index;
 
         if (m_Active)
         {
@@ -66,6 +67,36 @@ public class Arrow : MonoBehaviour
                 return;
             }
 
+            // コントローラー
+            // 縦
+            if (Singleton<Pad>.Instance.IsClick_Up())
+            {
+                player.PlayerMove(Player.DirectionType.Up);
+                m_Active = false;
+                return;
+            }
+            if (Singleton<Pad>.Instance.IsClick_Down())
+            {
+                player.PlayerMove(Player.DirectionType.Down);
+                m_Active = false;
+                return;
+            }
+
+            // 横
+            if (Singleton<Pad>.Instance.IsClick_Right())
+            {
+                player.PlayerMove(Player.DirectionType.Right);
+                m_Active = false;
+                return;
+            }
+            if (Singleton<Pad>.Instance.IsClick_Left())
+            {
+                player.PlayerMove(Player.DirectionType.Left);
+                m_Active = false;
+                return;
+            }
+
+
             if (!player.IsMove)
             {
                 m_Time += Time.deltaTime;
@@ -79,19 +110,5 @@ public class Arrow : MonoBehaviour
                 }
             }
         }
-
-        //// 縦
-        //if (Input.GetAxis("Vertical") < -0.1f)
-        //    player.PlayerMove(Player.DirectionType.Up);
-        //if (Input.GetAxis("Vertical") > 0.1f)
-        //    player.PlayerMove(Player.DirectionType.Down);
-
-        //// 横
-        //if (Input.GetAxis("Horizontal") > 0.1f)
-        //    player.PlayerMove(Player.DirectionType.Right);
-        //if (Input.GetAxis("Horizontal") < -0.1f)
-        //    player.PlayerMove(Player.DirectionType.Left);
-
-        m_OldIndex = m_Index;
     }
 }

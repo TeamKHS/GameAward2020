@@ -41,7 +41,7 @@ public class Note : MonoBehaviour
             m_Success = false;
         }
 
-        if (Input.GetKey(KeyCode.Space) && !m_Success)
+        if ((Input.GetKeyDown(KeyCode.Space) || Singleton<Pad>.Instance.IsClick_ABXY()) && !m_Success)
         {
             m_Success = true;
             StartCoroutine(NoteActionDrawStart());

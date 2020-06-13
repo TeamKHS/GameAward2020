@@ -101,6 +101,7 @@ public class Player : MonoBehaviour
                 m_Once = false;
             }
         }
+        Singleton<Pad>.Instance.PadUpdate();
 
         Debug.Log(Singleton<SoundPlayer>.Instance.GetPlayTime());
 

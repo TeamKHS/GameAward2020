@@ -37,7 +37,6 @@ public class SoundPlayer
         }
 
         m_AudioSource.PlayOneShot(m_AudioClips[name].clip);
-
         return true;
     }
 

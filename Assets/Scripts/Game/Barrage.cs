@@ -49,7 +49,7 @@ public class Barrage : MonoBehaviour
         {
             score_Text.text = "あと" + barrageNum + "回！";
         }
-        if (active && old && Input.GetKeyDown(KeyCode.Space) && barrageNum > 0)
+        if (active && old && (Input.GetKeyDown(KeyCode.Space) || Singleton<Pad>.Instance.IsClick_ABXY()) && barrageNum > 0)
         {
             barrageNum -= 1;
             score_Text.text = "あと" + score.ToString() + "回！";

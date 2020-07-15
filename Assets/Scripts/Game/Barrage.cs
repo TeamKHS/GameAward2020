@@ -53,6 +53,8 @@ public class Barrage : MonoBehaviour
         {
             barrageNum -= 1;
             score_Text.text = "あと" + score.ToString() + "回！";
+            Singleton<SoundPlayer>.Instance.PlaySE("se");
+
         }
         else if (barrageNum <= 0)
         {

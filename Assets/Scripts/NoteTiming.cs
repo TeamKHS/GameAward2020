@@ -19,7 +19,7 @@ public class NoteTiming : MonoBehaviour
                 break;
 
             case 1:
-                Stage01();
+                Stage02();
                 break;
 
             case 2:
@@ -100,6 +100,37 @@ public class NoteTiming : MonoBehaviour
         m_Timing.Add(offset + 6.8f + Timing(4, 4, hatibu, 40, 4));
         m_Timing.Add(offset + 6.8f + Timing(4, 4, hatibu, 41, 0));
         m_Timing.Add(offset + 6.8f + Timing(4, 4, hatibu, 43, 4));
+        m_Timing.Add(-1.0f);
+    }
+
+    private void Stage02()
+    {
+        float BPM = 120.0f;
+        float hatibu = 60.0f / BPM / 2.0f;
+        float offset = -4.1f;
+        //float offset = 0.0f;
+
+        m_Timing.Add(offset + 6.8f);
+        m_Timing.Add(offset + 6.8f + Timing(0, 0, hatibu, 0, 4));
+        m_Timing.Add(offset + 6.8f + Timing(0, 0, hatibu, 5, 4));
+        m_Timing.Add(offset + 6.8f + Timing(0, 0, hatibu, 6, 4));
+        m_Timing.Add(offset + 6.8f + Timing(0, 0, hatibu, 10, 4));
+
+        m_Timing.Add(offset + 6.8f + Timing(0, 0, hatibu, 11, 0));
+        m_Timing.Add(offset + 6.8f + Timing(0, 0, hatibu, 11, 2));
+        m_Timing.Add(offset + 6.8f + Timing(0, 0, hatibu, 12, 0));
+        m_Timing.Add(offset + 6.8f + Timing(0, 0, hatibu, 12, 2));
+        m_Timing.Add(offset + 6.8f + Timing(0, 0, hatibu, 13, 0));
+
+        m_Timing.Add(offset + 6.8f + Timing(0, 0, hatibu, 13, 2));
+        m_Timing.Add(offset + 6.8f + Timing(0, 0, hatibu, 14, 4));
+        m_Timing.Add(offset + 6.8f + Timing(0, 8, hatibu, 17, 0));
+        m_Timing.Add(offset + 6.8f + Timing(0, 8, hatibu, 19, 4));
+        m_Timing.Add(offset + 6.8f + Timing(0, 8, hatibu, 20, 0));
+                                               
+        m_Timing.Add(offset + 6.8f + Timing(0, 8, hatibu, 22, 2));
+        m_Timing.Add(offset + 6.8f + Timing(0, 8, hatibu, 24, 0));
+        m_Timing.Add(offset + 6.8f + Timing(0, 8, hatibu, 24, 6));
         m_Timing.Add(-1.0f);
     }
 }

@@ -38,7 +38,7 @@ public class StageManager : MonoBehaviour
                 break;
 
             case 1:
-                Stage00(ref map);
+                Stage01(ref map);
                 break;
 
             case 2:
@@ -80,6 +80,16 @@ public class StageManager : MonoBehaviour
         map = (GameObject)Resources.Load("Stage04");
 
         Singleton<SoundPlayer>.Instance.AddResource("music", "kobayashi2");
+        Singleton<SoundPlayer>.Instance.AddResource("se", "piyo");
+
+        Singleton<SoundPlayer>.Instance.SetBGM("music");
+    }
+
+    private void Stage01(ref GameObject map)
+    {
+        map = (GameObject)Resources.Load("Stage05");
+
+        Singleton<SoundPlayer>.Instance.AddResource("music", "carmen");
         Singleton<SoundPlayer>.Instance.AddResource("se", "piyo");
 
         Singleton<SoundPlayer>.Instance.SetBGM("music");
